@@ -1,0 +1,1 @@
+import{s as c}from"./DOsRtn-5.js";import{o as n}from"./BXE2Xjof.js";import"./QjRxgrZG.js";class r{constructor(a){this.appearanceSelect=document.querySelector(`#${a}`),n(this.appearanceSelect,"change",t=>{c(c24.getData("appearanceKey"),t.target.value,365*86400),window.location.reload()})}}function o(e){new r(e)}window.initAppearanceSelect=o;

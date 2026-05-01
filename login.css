@@ -1,0 +1,587 @@
+/* ========================================
+   ROOT VARIABLES
+======================================== */
+:root{
+  background: linear-gradient(to right bottom, #2b6081,#14425f,#030f16 ,#102b44,#031f30, #3065a5, #2e4968);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ========================================
+   RESET STYLES
+======================================== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Times New Roman", sans-serif;
+}
+
+/* ========================================
+   BODY STYLES
+======================================== */
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background: radial-gradient(circle at top, var(--mid), var(--dark));
+  direction: ltr;
+}
+
+/* ================= Navbar ================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px 15px;
+    background: #11111100;
+    position: absolute; /* navbar ينزل معاك */
+    top: 0;
+    z-index: 1000;
+    direction: rtl;
+    margin-top: 10px;
+}
+
+/* شعار + زر الموبايل */
+.nav-right-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.nav-logo span {
+    color: #00d4ff;
+}
+
+/* روابط التنقل */
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    position: relative;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    background-color: #00d4ff;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Dropdown */
+.nav-links .dropdown {
+    position: relative;
+}
+
+.nav-links .dropbtn {
+    cursor: pointer;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+}
+
+.nav-links .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 25px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.nav-links .dropdown-content a {
+    color: #ccc;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.nav-links .dropdown-content a:hover {
+    background: #00d4ff33;
+    color: #fff;
+}
+.nav-links .dropdown.active .dropdown-content {
+    display: flex;
+}
+/* أيقونات */
+.icon-group {
+    display: flex;
+    gap: 15px;
+    color: white;
+    font-size: 18px;
+    align-items: center;
+}
+
+.icon-item {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Badge */
+.badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: white;
+    color: black;
+    font-size: 9px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* زر الموبايل مخفي على الديسكتوب */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+}
+
+
+
+/* ========================================
+   WRAPPER / CARDS CONTAINER
+======================================== */
+.cards{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  margin-top:60px;
+  margin-bottom:40px;
+}
+
+/* ========================================
+   AUTH CARD (MAIN LOGIN CARD)
+======================================== */
+.auth-card{
+  width:900px;
+  height:500px;
+  display:flex;
+  border-radius:20px;
+  position:relative;
+  overflow:hidden;
+  background:#000;
+  opacity:0.8;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+
+/* Animated border effect */
+.auth-card::before{
+  content:"";
+  position:absolute;
+  inset:-4px;
+  background:linear-gradient(
+    90deg,
+    #00b7ff,
+    #6c4911,
+    #00b7ff
+  );
+  background-size:300% 300%;
+  animation:borderMove 6s linear infinite;
+  z-index:-2;
+}
+
+/* Inner cover layer */
+.auth-card::after{
+  content:"";
+  position:absolute;
+  inset:4px;
+  background: linear-gradient(
+    135deg,
+    #050d13,
+    #061017
+  );
+  border-radius:16px;
+  z-index:-1;
+}
+
+/* Border animation keyframes */
+@keyframes borderMove{
+  0%{ background-position:0% 50%; }
+  100%{ background-position:300% 50%; }
+}
+
+/* ========================================
+   LEFT SIDE SHOWCASE
+======================================== */
+.showcase{
+  width:50%;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.3), rgba(0,0,0,.8)),
+    url("images/ROLEX COSMOGRAPH.jpg") center/cover no-repeat;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  padding-bottom:40px;
+  color:white;
+}
+
+.showcase img{
+  width:400px;
+  height:450px;
+  padding-top:20px;
+  filter: drop-shadow(0 0 30px var(--soft));
+}
+
+.showcase h3{
+  margin-top:20px;
+  letter-spacing:2px;
+  padding-bottom: 10px;
+}
+
+.showcase p{
+  font-size:15px;
+  opacity:.8;
+}
+
+/* ========================================
+   RIGHT SIDE AUTH PANEL
+======================================== */
+.auth-panel{
+  width:50%;
+  padding:50px;
+  background: rgba(13, 40, 127, 0.05);
+  backdrop-filter: blur(20px);
+  color:white;
+}
+
+.auth-panel h2{
+  text-align:center;
+  margin-bottom:30px;
+  font-weight:300;
+  letter-spacing:2px;
+}
+
+.auth-panel input{
+  width:100%;
+  padding:14px;
+  margin-bottom:20px;
+  background:none;
+  border:none;
+  border-bottom:1px solid var(--soft);
+  color:white;
+  font-size:16px;
+}
+
+.auth-panel input::placeholder{
+  color:rgba(255,255,255,.7);
+}
+
+/* Login button */
+.login-btn{
+  width:100%;
+  padding:12px;
+  background: linear-gradient(135deg, rgb(40, 40, 44));
+  border:none;
+  border-radius:25px;
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.login-btn:hover{
+  box-shadow:0 0 20px rgba(81, 77, 127, 0.6);
+}
+
+/* ========================================
+   DIVIDER
+======================================== */
+.divider{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin:30px 0;
+  font-size:12px;
+  opacity:.7;
+}
+
+.divider::before,
+.divider::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:rgba(255,255,255,.3);
+}
+
+/* ========================================
+   SOCIAL ICONS
+======================================== */
+.social{
+  display:flex;
+  justify-content:center;
+  gap:25px;
+}
+
+.social img{
+  width:22px;
+  filter: grayscale(100%) brightness(200%);
+  opacity:.8;
+  transition:.3s;
+  cursor:pointer;
+}
+
+.social img:hover{
+  opacity:1;
+  filter: grayscale(0%) brightness(250%);
+}
+/* ========================================
+    
+/* ========================================
+    FOOTER (صافي وبدون خطوط فواصل)
+======================================== */
+.footer {
+    background: linear-gradient(to right bottom, #15374b, #0b293b, #030f16, #03111e, #031f30, #0a1e35, #1f3349);
+    color: #ccc;
+    padding: 60px 20px; /* زيادة المسافة العلوية ليعطي فخامة */
+    width: 100%;
+    box-sizing: border-box;
+    direction: rtl;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* العنوان الكبير للمتجر */
+.footer-header h2 {
+    color: #fff;
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 40px;
+    text-align: right;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* توزيع الأعمدة بجانب بعضها */
+.footer-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+}
+
+/* العمود الواحد */
+.footer-link {
+    flex: 1;
+    min-width: 150px; /* لضمان عدم صغر العمود جداً */
+    text-align: right;
+}
+
+.footer-link h3 {
+    color: #fff;
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+.footer-link ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-link ul li a {
+    color: #ada8a8;
+    text-decoration: none;
+    display: block;
+    margin: 10px 0;
+    transition: 0.3s ease;
+    font-size: 15px;
+}
+
+.footer-link ul li a:hover {
+    color: #fff;
+    transform: translateX(-5px); /* حركة بسيطة لليمين بدل الخط */
+}
+
+/* الحقوق في الأسفل */
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+}
+/* ====== Responsive ====== */
+
+/* ========================================
+   MEDIA QUERIES FOR MOBILE (768px)
+======================================== */
+@media (max-width: 768px) {
+
+    /* 1. إظهار أيقونة المنيو */
+    .menu-icon {
+        display: block;
+        z-index: 1001;
+    }
+
+    /* 2. تنسيق القائمة الرئيسية (الأم) */
+    .nav-links {
+        display: none; /* مخفية وتظهر بالـ active */
+        position: absolute;
+        top: 60px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.95); /* خلفية داكنة لضمان وضوح النص */
+        flex-direction: column;
+        width: 220px;
+        padding: 20px;
+        border-radius: 15px;
+        z-index: 1000;
+        align-items: flex-start;
+        gap: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links.active {
+        display: flex; /* تظهر عند الضغط على زر المنيو */
+    }
+
+    .nav-links a {
+        width: 100%;
+        margin: 5px 0;
+        padding: 5px 0;
+    }
+
+    /* 3. حل مشكلة تداخل النصوص (Dropdown) */
+    .nav-links .dropdown {
+        width: 100%;
+    }
+
+    .nav-links .dropdown-content {
+        position: relative; /* هذا يمنع الكلمات من الدخول في بعضها */
+        top: 0;
+        right: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05); /* تمييز بسيط للقائمة الفرعية */
+        border-radius: 8px;
+        margin-top: 5px;
+        padding-right: 15px; /* إزاحة جهة اليمين */
+        display: none; /* مخفية وتظهر عند الضغط */
+        box-shadow: none;
+    }
+
+    /* إظهار القائمة الفرعية عند الضغط */
+    .nav-links .dropdown.active .dropdown-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 4. تنسيق الكروت (Login Card) للموبايل */
+    .auth-card {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+        margin-top: 20px;
+    }
+
+    .showcase, .auth-panel {
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .showcase img {
+        width: 200px;
+        height: auto;
+    }
+
+    /* 5. تنسيق الفوتر للموبايل */
+ .footer {
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .footer-header h2 {
+        text-align: center;
+        margin: 0 0 20px 0;
+    }
+
+    .footer-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px; /* مسافة بدل الخطوط الفاصلة */
+    }
+
+    .footer-link {
+        flex: 1;
+        text-align: center;
+        border-right: none !important; /* حذف الخط الجانبي */
+        border-bottom: none !important; /* حذف الخط السفلي */
+        padding: 0;
+        width: 100%;
+    }
+
+    .footer-bottom {
+        border-top: none !important; /* حذف خط الحقوق */
+        margin-top: 20px;
+        padding-top: 0;
+    }
+
+/* قائمة الروابط تحت كل عنصر */
+.footer-link ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-link ul li a {
+  color: #ada8a8;
+  text-decoration: none;
+  display: block;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+.footer-link ul li a:hover {
+  color: #fff;
+}
+
+/* نصوص الفقرة داخل المجموعة */
+.footer-link p {
+  color: #ada8a8;
+  margin: 5px 0;
+}
+
+
+
+}
+
+
+
+
+/* ========== Responsive ========== */
+

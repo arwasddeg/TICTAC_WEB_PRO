@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Sp.css">
+    <title>Sport Watches</title>
+</head>
+<body style="
+background: linear-gradient(to right bottom,
+ #403025,
+#3d2b1f ,
+ #1a0f00,
+ #0a0601 ,
+  #3d2b1f ,
+ #1a0f00
+ );
+    background-size: cover;
+    background-attachment: fixed;
+">
+      <header class="navbar">
+
+  <!-- الجهة اليمنى: شعار + زر الموبايل -->
+  <div class="nav-right-group">
+      <div class="logo">TIC<span>TAC</span></div>
+      <div class="menu-icon">☰</div>
+  </div>
+
+  <!-- الروابط -->
+  <nav class="nav-links">
+      <a href="index.html">الرئيسية</a>
+
+      <!-- Dropdown المنتجات -->
+      <div class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">المنتجات ▾</a>
+          <div class="dropdown-content">
+              <a href="MprPage.html?type=modern">ساعات حديثة</a>
+              <a href="Sp.html?type=sport">ساعات رياضية</a>
+          </div>
+      </div>
+
+     <a href="aboutUs.html">من نحن</a>
+
+  </nav>
+
+  <!-- الأيقونات -->
+  <div class="nav-left-icons">
+      <div class="icon-group">
+          <div class="icon-item">♡ <span class="badge">8</span></div>
+          <div class="icon-item" onclick="goLogin()">👤</div>
+          <div class="icon-item" onclick="goCart()">🛒 <span class="badge">3</span></div>
+      </div>
+  </div>
+
+</header>
+<section class="page">
+  <h1>ساعات رياضية</h1>
+<div class="filter-buttons">
+    <div class="filter-buttons">
+    <button onclick="filterSelection('all')" class="btn">الكل</button>
+    <button onclick="filterSelection('men')" class="btn">رجالي</button>
+     <button onclick="filterSelection('women')" class="btn">نسائي</button> 
+    </div>
+</div>
+  <div class="grid">
+    <a href="#product1" class="card-link">
+    <div class="card" data-category="women"
+    data-battery="10 ايام " 
+         data-water="عمق 30 متر" 
+         data-heart="مراقبة 24/7" 
+         data-gps="مساعد Alexa مدمج"
+         onmouseenter="showDetails(this)" 
+         onmouseleave="closeDetails()">
+          <div class="img-box">    
+              <img src="sportsImages/aeac Smart Watch Fitness Watch for Men Women, Alexa Built-in & Stable Bluetooth Call.png">
+          </div>
+      <h3>Power Pink</h3>
+      <span>€199.00</span>
+    </div>
+</a>
+<a href="#product2" class="card-link">
+    <div class="card" data-category="men"
+    data-battery="14 يوم" 
+         data-water="عمق 50 متر" 
+         data-heart="تقنية BioTracker 2" 
+         data-gps="شاشة تعمل دائماً"
+         onmouseenter="showDetails(this)" 
+         onmouseleave="closeDetails()">
+         <div class="img-box">
+      <img src="sportsImages/Amazfit GTR 2e Smart Watch Slate Grey.png">
+    </div>
+      <h3>Slate Grey</h3>
+      <span>€249.00</span>
+    </div>
+</a>
+
+    <a href="#product3" class="card-link">
+    <div class="card" data-category="women"
+    data-battery="11 يوم" 
+         data-water="عمق 50 متر" 
+         data-heart="نبض متطور" 
+         data-gps="تقرير جودة النوم"
+         onmouseenter="showDetails(this)" 
+         onmouseleave="closeDetails()">
+         <div class="img-box">
+      <img src="sportsImages/Amazon_com_ Garmin vívoactive 5, Health and Fitness GPS Smartwatch, AMOLED Display, Up to 11 Days of Battery, Ivory _ Electronics.png">
+      </div>
+      <h3>Ivory White</h3>
+      <span>€299.00</span>
+    </div></a>
+
+<a href="#product4" class="card-link">
+    <div class="card" data-category="women"
+    data-battery="20 يوم" 
+         data-water="عمق 100 متر" 
+         data-heart="مستشعر شديد التحمل" 
+         data-gps="نظام GPS مزدوج النطاق"
+         onmouseenter="showDetails(this)" 
+         onmouseleave="closeDetails()">
+         <div class="img-box">
+      <img src="sportsImages/Botones.png">
+      </div>
+      <h3>Fossil Gen 5E</h3>
+      <span>€700.00</span>
+    </div>
+    </a>
+    <a href="#product5" class="card-link">
+    <div class="card" data-category="women"
+    data-battery="يومين" 
+         data-water="معيار IP68" 
+         data-heart="مراقبة الأمان" 
+         data-gps="اتصال LTE مستقل"
+         onmouseenter="showDetails(this)" 
+         onmouseleave="closeDetails()">
+         <div class="img-box">
+      <img src="sportsImages/Garmin BOUNCE 2 Watch _ LTE Connectivity _ Amazon Music _ 30mm _ Light Purple.png">
+      </div>
+      <h3>Bounce Purple</h3>
+      <span>€955.00</span>
+    </div>
+    </a>
+    <a href="#product6" class="card-link">
+    <div class="card" data-category="women"
+    data-battery="7 أيام" 
+         data-water="عمق 50 متر" 
+         data-heart="دقة Precision 3.0" 
+         data-gps="التحكم بالموسيقى"
+         onmouseenter="showDetails(this)" 
+         onmouseleave="closeDetails()">
+         <div class="img-box">
+      <img src="sportsImages/Heart Rate Monitor Water Resistant Smart Watch.png">
+      </div>
+      <h3>Classic Midnight</h3>
+      <span>€1200.00</span>
+    </div></a>
+    <a href="#product7" class="card-link">
+    <div class="card"data-category="men" 
+    data-battery="14 يوم" 
+         data-water="عمق 50 متر" 
+         data-heart="تقنية +TruSeen 5.0" 
+         data-gps="هيكل تيتانيوم فاخر"
+         onmouseenter="showDetails(this)" 
+         onmouseleave="closeDetails()">
+         <div class="img-box">
+      <img src="sportsImages/HUAWEI Wearables - HUAWEI Global.png">
+      </div>
+      <h3>Huawei GT Pro</h3>
+      <span>€650.00</span>
+    </div></a>
+    <a href="#product8" class="card-link">
+<div class="card" data-category="men"
+data-battery="سنة كاملة" 
+         data-water="عمق 30 متر" 
+         data-heart="نبض أساسي" 
+         data-gps="إضاءة LED خلفية"
+         onmouseenter="showDetails(this)" 
+         onmouseleave="closeDetails()">
+     <div class="img-box"> 
+      <img src="sportsImages/Mens Watches Ultra-Thin Digital Watch Lightweight Sports Watch Waterproof Fashion Outdoor Wrist Watches for Men with Stopwatch LED Ligh Alarm Date.png">
+      </div>
+      <h3>Ultra Digital</h3>
+      <span>€1000.00</span>
+    </div>
+    </a>
+    <a href="#product9" class="card-link">
+    <div class="card"data-category="men" 
+    data-battery="13 يوم" 
+         data-water="عمق 50 متر" 
+         data-heart="تتبع الصحة الشامل" 
+         data-gps="خاصية كشف السقوط"
+         onmouseenter="showDetails(this)" 
+         onmouseleave="closeDetails()">
+         <div class="img-box">
+      <img src="sportsImages/Strap for Huawei Watch GT2 E.png">
+         </div>
+      <h3>Huawei Watch GT2</h3>
+      <span>€700.00</span>
+    </div>
+    </a>
+    </div>
+</section>
+
+<div id="sidePanel" class="side-panel">
+    <div class="panel-content">
+        <img id="panelImg" src="" alt="">
+        <h2 id="panelTitle"></h2>
+        <p id="panelSubtitle"></p>
+        <hr>
+<div class="details-text">
+    <h4>المواصفات التقنية</h4> <ul>
+        <li id="pBattery"></li>
+        <li id="pWater"></li>
+        <li id="pHeart"></li>
+        <li id="pGPS"></li>
+    </ul>
+</div>
+    </div>
+</div>
+<div id="product1" class="modal-css">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        
+        <div class="modal-layout">
+            <div class="gallery-section">
+                <img src="sportsImages/aeac Smart Watch Fitness Watch for Men Women, Alexa Built-in & Stable Bluetooth Call.png" class="main-img">
+                <!-- <div class="thumbs">
+                    <img src="sportsImages/side1.png">
+                    <img src="sportsImages/side2.png">
+                </div> -->
+            </div>
+
+<div class="info-section">
+                <h2>Power Pink</h2>
+                <p class="edition-text"></p>
+                <h3>€199.00</h3>
+                <div class="desc">
+                    <p>
+                        <br>
+                        <dl>الوصف</dl>
+                        <dt>ساعة ذكية أنيقة تجمع بين التصميم العصري والوظائف الرياضية المتقدمة، مثالية للنساء اللواتي يبحثن عن الأناقة والأداء.</dt>
+                      <br><dl>المميزات</dl>
+                      <dt>تدعم المساعد الصوتي Alexa مدمج، إمكانية إجراء واستقبال المكالمات عبر البلوتوث بشكل مستقر، وتتبع دقيق لـ 14 وضعاً رياضياً.</dt>
+                    </p>
+                </div>
+                <button class="cart-btn">أضف إلى السلة</button>
+            </div>
+        </div>
+         
+    </div>
+</div>
+<div id="product2" class="modal-css">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        
+        <div class="modal-layout">
+            <div class="gallery-section">
+                <img src="sportsImages/Amazfit GTR 2e Smart Watch Slate Grey.png" class="main-img">
+               
+            </div>
+
+            <div class="info-section">
+                <h2>Slate Grey</h2>
+                <p class="edition-text"></p>
+                <h3>€240.00</h3>
+                <div class="desc">
+            <p> 
+                <br>
+                  <dt>الوصف</dt>
+                  <dd>ساعة كلاسيكية بتصميم دائري وشاشة AMOLED فائقة الوضوح، تناسب المظهر الرسمي والرياضي</dd>
+                  <br><dt>المميزات</dt>
+                  <dd>قياس نسبة الأكسجين في الدم (SpO2)، مراقبة جودة النوم، ومقاومة للماء حتى عمق 50 متراً</dd>
+                  </p>
+                </div>
+                <button class="cart-btn">أضف إلى السلة</button>
+            </div>
+        </div>
+         
+    </div>
+</div>
+<div id="product3" class="modal-css">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        
+        <div class="modal-layout">
+            <div class="gallery-section">
+                <img src="sportsImages/Amazon_com_ Garmin vívoactive 5, Health and Fitness GPS Smartwatch, AMOLED Display, Up to 11 Days of Battery, Ivory _ Electronics.png" class="main-img">
+                <!-- <div class="thumbs">
+                    <img src="sportsImages/side1.png">
+                    <img src="sportsImages/side2.png">
+                </div> -->
+            </div>
+
+            <div class="info-section">
+                <h2>IvoryWhite</h2>
+                <p class="edition-text"></p>
+                <h3>€299.00</h3>
+                <div class="desc">
+                     <p>
+                        <br>
+                   <dt>الوصف</dt>
+                  <dd>مدربك الشخصي على معصمك، تتميز بلون عاجي راقٍ وشاشة AMOLED مبهرة.</dd>
+                  <dt>المميزات</dt>
+                  <br>
+                  <dd>تتبع متقدم للطاقة (Body Battery)، تمارين موجهة، ونظام GPS دقيق جداً لمحبي الجري وركوب الدراجات</dd>
+                  </p>
+                </div>
+                <button class="cart-btn">أضف إلى السلة</button>
+            </div>
+        </div>
+         
+    </div>
+</div>
+<div id="product4" class="modal-css">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        
+        <div class="modal-layout">
+            <div class="gallery-section">
+                <img src="sportsImages/Botones.png" class="main-img">
+                <!-- <div class="thumbs">
+                    <img src="sportsImages/side1.png">
+                    <img src="sportsImages/side2.png">
+                </div> -->
+            </div>
+
+<div class="info-section">
+                <h2>Fossil Gen 5E</h2>
+                <p class="edition-text"></p>
+                <h3>€700.00</h3>
+                <div class="desc">
+                    <p>
+                        <br>
+                    <dt>الوصف </dt>
+                    <dd>مزيج ساحر بين الساعة الكلاسيكية المرصعة بالفصوص والذكاء الاصطناعي من Google.</dd>
+                    <br>
+                    <dt>المميزات</dt>
+                    <dd>: تعمل بنظام Wear OS، تدعم الدفع الإلكتروني، وتأتي بإطار ذهبي وردي مرصع بالكريستال مع حزام أرجواني مريح.</dd>
+
+                    </p>
+                </div>
+                <button class="cart-btn">أضف إلى السلة</button>
+            </div>
+        </div>
+         
+    </div>
+</div>
+<div id="product5" class="modal-css">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        
+        <div class="modal-layout">
+            <div class="gallery-section">
+                <img src="sportsImages/Garmin BOUNCE 2 Watch _ LTE Connectivity _ Amazon Music _ 30mm _ Light Purple.png" class="main-img">
+               
+            </div>
+
+            <div class="info-section">
+                <h2>Pounce Purple</h2>
+                <p class="edition-text"></p>
+                <h3>€955.00</h3>
+                <div class="desc">
+                    <p>
+                        <br>
+                        <dt>الوصف </dt>
+                    <dd>لساعة المثالية للأطفال والمراهقين، تركز على الأمان والتواصل المستمر.</dd><br>
+                    <dt>المميزات</dt>
+                    <dd>: اتصال LTE لإرسال الرسائل وتحديد الموقع بدون الحاجة لهاتف، تتبع النشاط البدني، وألعاب تفاعلية.</dd>
+
+                    </p>
+                </div>
+                <button class="cart-btn">أضف إلى السلة</button>
+            </div>
+        </div>
+         
+    </div>
+</div>
+<div id="product6" class="modal-css">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        
+        <div class="modal-layout">
+            <div class="gallery-section">
+                <img src="sportsImages/Heart Rate Monitor Water Resistant Smart Watch.png" class="main-img">
+              
+            </div>
+
+            <div class="info-section">
+                <h2>Classic Midnight</h2>
+                <p class="edition-text"></p>
+                <h3>€1200.00</h3>
+                <div class="desc">
+                    <p>
+                        <br>
+                        <dt>الوصف</dt>
+                        <dd>الخيار المفضل للرياضيين المحترفين الذين يركزون على أرقام القلب وحرق السعرات.</dd>
+                        <br>
+                        <dt>المميزات</dt>
+                        <dd>هيكل متين مقاوم للصدمات، تنبيهات لارتفاع نبض القلب، ومقاومة ممتازة للتعرق والمياه.</dd>
+                    </p>
+                </div>
+                <button class="cart-btn">أضف إلى السلة</button>
+            </div>
+        </div>
+         
+    </div>
+</div>
+<div id="product7" class="modal-css">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        
+        <div class="modal-layout">
+            <div class="gallery-section">
+                <img src="sportsImages/HUAWEI Wearables - HUAWEI Global.png" class="main-img">
+               
+            </div>
+
+<div class="info-section">
+                <h2>Huawei GT Pro</h2>
+                <p class="edition-text"></p>
+                <h3>€700.00</h3>
+                <div class="desc">
+                    <p>
+                        <br>
+                      <dt>الوصف</dt>
+                        <dd>قمة الفخامة الرياضية، مصنوعة من تيتانيوم الطائرات وزجاج الياقوت المقاوم للخدش.</dd>
+                        <br>
+                        <dt>المميزات</dt>
+                        <dd>أكثر من 100 وضع للتمرين بما في ذلك الغوص والجولف، ومراقبة دقيقة جداً للمؤشرات الحيوية TruSeen 5.0+</dd>  
+                    
+                    </p>
+                </div>
+                <button class="cart-btn">أضف إلى السلة</button>
+            </div>
+        </div>
+         
+    </div>
+</div>
+<div id="product8" class="modal-css">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        
+        <div class="modal-layout">
+            <div class="gallery-section">
+                <img src="sportsImages/Mens Watches Ultra-Thin Digital Watch Lightweight Sports Watch Waterproof Fashion Outdoor Wrist Watches for Men with Stopwatch LED Ligh Alarm Date.png" class="main-img">
+               
+            </div>
+
+            <div class="info-section">
+                <h2>Ultra Digital</h2>
+                <p class="edition-text"></p>
+                <h3>€1000.00</h3>
+                <div class="desc">
+                    <p>
+                        <br>
+                        <dt>الوصف</dt>
+                        <dd>ساعة رقمية كلاسيكية لمحبي البساطة والعملية، خفيفة جداً على اليد ومناسبة للكد العملي.</dd>
+                        <br>
+                        <dt>المميزات</dt>
+                        <dd>منبه، ساعة إيقاف (Stopwatch)، إضاءة LED قوية، ومقاومة كاملة للماء للاستخدام اليومي.</dd>
+                    </p>
+                </div>
+                <button class="cart-btn">أضف إلى السلة</button>
+            </div>
+        </div>
+         
+    </div>
+</div>
+<div id="product9" class="modal-css">
+    <div class="modal-content">
+        <a href="#" class="close-btn">&times;</a>
+        
+        <div class="modal-layout">
+            <div class="gallery-section">
+                <img src="sportsImages/SAMSUNG Galaxy FIT 3 [2024] 1_6_ AMOLED Display _ 14 Days Battery Life _ 100+ Watchfaces _ 100+ Exercise Modes _ International Model - (Black)(International Version).png" class="main-img">
+              
+            </div>
+
+            <div class="info-section">
+                <h2>Huawei Watch GT2</h2>
+                <p class="edition-text"></p>
+                <h3>€700.00</h3>
+                <div class="desc">
+                    <p>
+                        <br>
+                        <dl>الوصف</dl>
+                        <dt>ساعة ذكية أنيقة تجمع بين التصميم العصري والوظائف الرياضية المتقدمة، مثالية للنساء اللواتي يبحثن عن الأناقة والأداء.</dt>
+                      <br><dl>المميزات</dl>
+                    <dt>تدعم المساعد الصوتي Alexa مدمج، إمكانية إجراء واستقبال المكالمات عبر البلوتوث بشكل مستقر، وتتبع دقيق لـ 14 وضعاً رياضياً.</dt>
+                    </p>
+                </div>
+                <button class="cart-btn">أضف إلى ألسلة</button>
+            </div>
+        </div>
+         
+    </div>
+</div>
+<script>
+    function showDetails(element) {
+    // جلب النصوص والصورة
+    document.getElementById('panelImg').src = element.querySelector('img').src;
+    document.getElementById('panelTitle').innerText = element.querySelector('h3').innerText;
+    document.getElementById('panelSubtitle').innerText = element.querySelector('span').innerText;
+
+    // جلب المواصفات (تأكدي أن المسميات مطابقة للـ data- في الأعلى)
+    const battery = element.getAttribute('data-battery');
+    const water = element.getAttribute('data-water');
+    const heart = element.getAttribute('data-heart');
+    const gps = element.getAttribute('data-gps');
+
+// تعبئة الـ <li> في الـ HTML
+    document.getElementById('pBattery').innerHTML = "⚡️ البطارية: " + battery;
+    document.getElementById('pWater').innerHTML = "💧 مقاومة الماء: " + water;
+    document.getElementById('pHeart').innerHTML = "💓 نبض القلب: " + heart;
+    document.getElementById('pGPS').innerHTML = "📍 ميزات: " + gps;
+
+    document.getElementById('sidePanel').classList.add('active');
+}
+function filterSelection(category) {
+    let cards = document.querySelectorAll(".card"); // جلب كل الكاردات
+    
+    cards.forEach(card => {
+        let cardCategory = card.getAttribute("data-category");
+        let parentLink = card.closest('a'); // الوصول للرابط الأب <a>
+
+        if (category === "all" || cardCategory === category) {
+            parentLink.style.display = "block"; // إظهار إذا كان مطابقاً أو اخترنا الكل
+        } else {
+            parentLink.style.display = "none";  // إخفاء إذا لم يكن مطابقاً
+        }
+    });
+}
+
+    function closeDetails() {
+        // إخفاء اللوحة عند ابتعاد الماوس
+        document.getElementById('sidePanel').classList.remove('active');
+    }
+</script>
+<footer class="footer">
+  <!-- العنوان الكبير -->
+  <div class="footer-header">
+    <h2>TICTAC</h2>
+  </div>
+
+  <!-- أسماء العناصر في صف واحد -->
+  <div class="footer-nav">
+    <div class="footer-link">
+      <h3>معلومات</h3>
+      <ul>
+        <li><a href="aboutUs.html">من نحن</a></li>
+        <li><a href="aboutUs.html">أسئلة متكررة</a></li>
+        <li><a href="aboutUs.html">إتصل بنا</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-link">
+      <h3>الشروط والسياسات</h3>
+      <ul>
+        <li><a href="#">شروط الاستخدام</a></li>
+        <li><a href="#">سياسة الخصوصية</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-link">
+      <h3>العنوان</h3>
+      <p>بن عاشور - طرابلس</p>
+    </div>
+
+    <div class="footer-link">
+      <h3>معلومات الوصول</h3>
+      <ul>
+        <li><a href="#">Tictac2025@gmail.com</a></li>
+        <li><a href="#">0915044592</a></li>
+        <li><a href="#">0925044592</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- نص أسفل الفوتر -->
+  <div class="footer-bottom">
+    © 2025 جميع الحقوق محفوظة
+  </div>
+</footer>
+ <!-- ملف الجافاسكريبت -->
+    <script src="hov.js"></script>
+</body>
+</html>

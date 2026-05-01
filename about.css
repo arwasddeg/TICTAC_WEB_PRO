@@ -1,0 +1,363 @@
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+ font-family: "Times new roman", sans-serif;
+}
+
+body{
+  background:#050816;
+  color:#e5e7eb;
+}
+
+/* ================= Navbar ================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px 15px;
+    background: #11111100;
+    position: absolute; /* navbar ينزل معاك */
+    top: 0;
+    z-index: 1000;
+    direction: rtl;
+    margin-top: 10px;
+}
+
+/* شعار + زر الموبايل */
+.nav-right-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.nav-logo span {
+    color: #00d4ff;
+}
+
+/* روابط التنقل */
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    position: relative;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    background-color: #00d4ff;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Dropdown */
+.nav-links .dropdown {
+    position: relative;
+}
+
+.nav-links .dropbtn {
+    cursor: pointer;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+}
+
+.nav-links .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 25px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.nav-links .dropdown-content a {
+    color: #ccc;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.nav-links .dropdown-content a:hover {
+    background: #00d4ff33;
+    color: #fff;
+}
+.nav-links .dropdown.active .dropdown-content {
+    display: flex;
+}
+/* أيقونات */
+.icon-group {
+    display: flex;
+    gap: 15px;
+    color: white;
+    font-size: 18px;
+    align-items: center;
+}
+
+.icon-item {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Badge */
+.badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: white;
+    color: black;
+    font-size: 9px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* زر الموبايل مخفي على الديسكتوب */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+}
+
+
+
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+
+    .menu-icon {
+        display: block; /* يظهر */
+    }
+
+    .nav-links {
+        display: none; /* يختفي على الموبايل */
+        position: absolute;
+        top: 55px;
+        right: 0;
+        background: rgba(0,0,0,0.95);
+        flex-direction: column;
+        padding: 15px;
+        border-radius: 10px;
+        width: 200px;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        display: flex; /* تظهر عند الضغط */
+    }
+
+    .nav-links a {
+        margin: 10px 0;
+    }
+
+    /* Dropdown على الموبايل عند الضغط */
+     .nav-links .dropdown-content {
+      display: none;
+      flex-direction: column;
+      padding-left: 0;
+      margin: 5px 0;
+      background: rgba(0,0,0,0.9); /* <- هنا شفافية القايمة في الموبايل */
+  }
+
+    .nav-links .dropdown.active .dropdown-content {
+      display: flex;
+  }
+}
+/* HERO */
+.hero{
+  height:60vh;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.4), rgba(0,0,0,.9)),
+    url("images/Bandit\ and\ Wei\ Koh’s\ Chopard\ Alpine\ Eagle\ XL\ Chrono.jpg") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:80px;
+}
+
+.hero-overlay{
+  text-align:center;
+}
+
+.hero h1{
+  font-size:48px;
+  letter-spacing:4px;
+  margin-bottom:15px;
+}
+
+.hero p{
+  font-size:16px;
+  opacity:.8;
+}
+
+/* ABOUT SECTION */
+.about{
+  padding:80px 60px;
+}
+
+.about-container{
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.about-text h2{
+  font-size:28px;
+  margin-bottom:20px;
+}
+
+.about-text p{
+  line-height:1.9;
+  margin-bottom:15px;
+  color:#d1d5db;
+}
+
+.note{
+  font-size:12px;
+  opacity:.6;
+  margin-top:20px;
+}
+
+/* IMAGE BOX */
+.about-image{
+  height:400px;
+  border-radius:20px;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.3), rgba(0,0,0,.8)),
+    url("images/ROLEX COSMOGRAPH.jpg") center/cover no-repeat;
+}
+
+.footer {
+  background: linear-gradient(to right bottom, #15374b, #0b293b, #030f16, #03111e, #031f30, #0a1e35, #1f3349);
+  color: #ccc;
+  padding: 40px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* العنوان الكبير */
+.footer-header h2 {
+  color: #fff;
+  font-weight: bold;
+  font-size: 28px;
+  margin: 12px 18px 7px 0px;
+  text-align: right;
+  
+
+}
+
+/* صف أسماء العناصر */
+.footer-nav {
+  display: flex;
+  justify-content: space-between; /* كل عنصر متساوي المسافة */
+  gap: 20px;
+  flex-wrap: wrap;                /* للسماح بالنزول على الشاشات الصغيرة */
+  max-width: 1200px;
+  margin: 0 auto 30px;
+}
+
+/* كل عنصر */
+.footer-link {
+  flex: 1;               /* يجعل كل عنصر متساوي العرض */
+  text-align: right;    /* العنوان والروابط في الوسط */
+}
+
+.footer-link h3 {
+  color: #fff;
+  font-weight: bold;    /* Bold حسب طلبك */
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* قائمة الروابط تحت كل عنصر */
+.footer-link ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-link ul li a {
+  color: #ada8a8;
+  text-decoration: none;
+  display: block;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+.footer-link ul li a:hover {
+  color: #fff;
+}
+
+/* نصوص الفقرة داخل المجموعة */
+.footer-link p {
+  color: #ada8a8;
+  margin: 5px 0;
+}
+
+/* نص أسفل الفوتر */
+.footer-bottom {
+  text-align: center;
+  font-size: 12px;
+  color: #ccc;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 1024px) {
+  .footer-nav {
+    justify-content: space-around;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-nav {
+    flex-direction: column; /* العناصر تصير تحت بعض */
+    align-items: center;
+    gap: 20px;
+  }
+
+  .footer-link {
+    text-align: center;
+  }
+}
+

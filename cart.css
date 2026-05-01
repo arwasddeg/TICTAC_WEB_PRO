@@ -1,0 +1,73 @@
+/* إعدادات الخط والخلفية العامة */
+body {
+    background: radial-gradient(circle at center, #0a1f33 0%, #020a10 100%);
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: rtl;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* حاوية العناصر */
+#cartItems {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* ستايل الكرت - نفس ستايل كروت الساعات */
+.cart-item {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.cart-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.cart-item h3 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #e0e0e0;
+}
+
+.cart-item p {
+    color: #b0b0b0;
+    font-size: 0.9rem;
+    margin: 5px 0;
+}
+
+/* السعر الإجمالي */
+#totalPrice {
+    margin-top: 40px;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 1.5rem;
+}
+
+/* رسالة السلة فارغة */
+.empty-msg {
+    font-size: 1.2rem;
+    opacity: 0.6;
+    grid-column: 1 / -1;
+}

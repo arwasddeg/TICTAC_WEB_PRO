@@ -1,0 +1,730 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Times new roman", sans-serif;
+  direction: rtl;
+}
+
+body {
+  min-height: 100vh;
+  color: white;
+  overflow-x: hidden; /* لمنع ظهور شريط التمرير العرضي */
+}
+
+.page {
+  padding: 60px;
+}
+/* ================= Navbar ================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px 15px;
+    background: #11111100;
+    position: sticky; /* navbar ينزل معاك */
+    top: 0;
+    z-index: 1000;
+    margin-top: 10px;
+}
+
+/* شعار + زر الموبايل */
+.nav-right-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #00d4ff;
+}
+
+/* روابط التنقل */
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    position: relative;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 50%;
+    background-color: #00d4ff;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Dropdown */
+.nav-links .dropdown {
+    position: relative;
+}
+
+.nav-links .dropbtn {
+    cursor: pointer;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+}
+
+.nav-links .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 25px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    flex-direction: column;
+    min-width: 150px;
+}
+
+.nav-links .dropdown-content a {
+    color: #ccc;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.nav-links .dropdown-content a:hover {
+    background: #00d4ff33;
+    color: #fff;
+}
+.nav-links .dropdown.active .dropdown-content {
+    display: flex;
+}
+/* أيقونات */
+.icon-group {
+    display: flex;
+    gap: 15px;
+    color: white;
+    font-size: 18px;
+    align-items: center;
+}
+
+.icon-item {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Badge */
+.badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: white;
+    color: black;
+    font-size: 9px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* زر الموبايل مخفي على الديسكتوب */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+
+    .menu-icon {
+        display: block; /* يظهر */
+    }
+
+    .nav-links {
+        display: none; /* يختفي على الموبايل */
+        position: absolute;
+        top: 55px;
+        right: 0;
+        background: rgba(0,0,0,0.95);
+        flex-direction: column;
+        padding: 15px;
+        border-radius: 10px;
+        width: 200px;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        display: flex; /* تظهر عند الضغط */
+    }
+
+    .nav-links a {
+        margin: 10px 0;
+    }
+
+    /* Dropdown على الموبايل عند الضغط */
+     .nav-links .dropdown-content {
+      display: none;
+      flex-direction: column;
+      padding-left: 0;
+      margin: 5px 0;
+      background: rgba(0,0,0,0.9); /* <- هنا شفافية القايمة في الموبايل */
+  }
+
+    .nav-links .dropdown.active .dropdown-content {
+      display: flex;
+  }
+}
+
+h1 {
+  font-size: 43px;
+  margin-top: 15px;
+  margin-bottom: 50px;
+  letter-spacing: 0px;
+  text-align: center;
+
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+/* CARD */
+.card {
+  position: relative;
+  height: 380px;
+  background: #02121c94;
+  border-radius: 22px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+  overflow: hidden;
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-12px);
+  border: 1px solid #14425f;
+}
+
+/* IMAGE */
+.card img {
+  width: 200px;
+  margin-top: -15px;
+  filter: drop-shadow(0 20px 25px rgba(0,0,0,0.8));
+  padding-top: 20px;
+  /* margin-left: 30px; */
+}
+/* صندوق الصورة */
+.img-box {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+/* الصورة نفسها */
+.img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* يحافظ على النسبة بدون تشويه */
+  filter: drop-shadow(0 20px 25px rgba(0,0,0,0.8));
+}
+
+
+/* TEXT */
+.card h3 {
+  margin-top: 20px;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.card span {
+  display: block;
+  margin-top: 6px;
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+/* GLOW EFFECT */
+.card::before {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  top: -120px;
+  left: -120px;
+  filter: blur(90px);
+  z-index: -1;
+  background: linear-gradient(to right bottom, #3065a5, #3692cc, #08203bd6);
+}
+
+/* SIDE PANEL */
+.side-panel {
+    position: fixed;
+    right: -450px; 
+    top: 0;
+    width: 380px;
+    height: 100vh;
+    background: #08203b9c;
+    backdrop-filter: blur(20px);
+    box-shadow: -10px 0 40px #7ebade;
+    z-index: 1000;
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    padding: 40px;
+    border-left: 3px solid #14425f;
+    pointer-events: none; /* عشان ما تعطلش حركة الماوس وأنت تتنقلي بين الكاردات */
+}
+
+.side-panel.active {
+    right: 0;
+}
+
+.panel-content {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.panel-content img {
+    width: 150px;
+    filter: drop-shadow(0 15px 30px #3692cc);
+    margin-bottom: 30px;
+}
+
+.panel-content h2 {
+    font-size: 26px;
+    margin-bottom: 5px;
+}
+
+.panel-content p {
+    color: #3692cc;
+    font-size: 14px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 30px 0;
+}
+
+.details-text h4 {
+    text-align: left;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: #aaa;
+    text-align: right;
+}
+
+.details-text ul {
+    text-align: right;
+    list-style: none;
+}
+
+.details-text ul li {
+    margin-bottom: 12px;
+    font-size: 15px;
+}
+
+.buy-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 40px;
+    background: #2b5a82;
+    border: none;
+    color: white;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 0, 110, 0.3);
+}
+/* إخفاء النافذة في الحالة العادية */
+.modal-css {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    display: none; /* مخفي */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    text-align: center;
+}
+
+/* عندما نضغط على الكارد ويصبح الـ ID موجوداً في الرابط، تظهر النافذة */
+.modal-css:target {
+    display: flex;
+}
+
+/* تنسيق الكارد ليظل قابلاً للضغط */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* تنسيق محتوى النافذة */
+.modal-content {
+    background: #1a1a1a;
+    width: 90%;
+    max-width: 900px;
+    padding: 50px;
+    border-radius: 20px;
+    position: relative;
+    border: 1px solid rgba(0, 110, 255, 0.2);
+}
+
+.modal-layout { 
+    display: flex; 
+    gap: 40px; 
+    align-items: center; 
+    
+}
+.gallery-section { 
+    flex: 1; 
+    text-align: center; 
+}
+.info-section { 
+    flex: 1; 
+    direction: rtl;
+}
+
+.main-img { 
+    max-width: 100%; 
+    height: 250px; 
+    object-fit: contain; 
+}
+
+.thumbs { 
+    display: flex; 
+    gap: 10px; 
+    justify-content: center; 
+    margin-top: 15px; 
+}
+.thumbs img { 
+    width: 60px; 
+    height: 60px; 
+    border: 1px solid #402c1f6b; 
+    border-radius: 5px; 
+}
+
+.close-btn {
+    position: absolute; 
+    right: 20px; 
+    top: 10px;
+    font-size: 40px; 
+    color: #555; 
+    text-decoration: none;
+}
+.close-btn:hover { 
+    color: white; 
+}
+
+.cart-btn {
+    width: 100%; 
+    padding: 15px; 
+    background: white; 
+    color: black;
+    border: none; 
+    font-weight: bold; 
+    font-size: 19px;    
+    cursor: pointer; 
+    margin-top: 20px;
+    border-radius: 30px;
+}
+.cart-btn:hover{
+  background: #e2f4ff;
+  box-shadow: 0 0 15px #379bda;
+}
+.filter-buttons {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.filter-buttons .btn {
+    background: rgba(255, 255, 255, 0.048);
+    border: 1px solid #3065a5;
+    color: white;
+    padding: 10px 25px;
+    margin: 5px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+}
+
+.filter-buttons .btn:hover, .filter-buttons .btn.active {
+    background: #2b5a82;
+    box-shadow: 0 0 15px #7ebade;
+}
+.footer {
+  background: linear-gradient(
+    to right bottom,
+    #15374b,
+    #0b293b,
+    #030f16,
+    #03111e,
+    #031f30,
+    #0a1e35,
+    #1f3349
+  );
+  color: #fff;
+  padding: 40px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* العنوان الكبير */
+.footer-header h2 {
+  color: #fff;
+  font-weight: bold;
+  font-size: 28px;
+  margin: 12px 18px 7px 0px;
+  text-align: right;
+  
+
+}
+
+/* صف أسماء العناصر */
+.footer-nav {
+  display: flex;
+  justify-content: space-between; /* كل عنصر متساوي المسافة */
+  gap: 20px;
+  flex-wrap: wrap;                /* للسماح بالنزول على الشاشات الصغيرة */
+  max-width: 1200px;
+  margin: 0 auto 30px;
+}
+
+/* كل عنصر */
+.footer-link {
+  flex: 1;               /* يجعل كل عنصر متساوي العرض */
+  text-align: right;    /* العنوان والروابط في الوسط */
+}
+
+.footer-link h3 {
+  color: #fff;
+  font-weight: bold;    /* Bold حسب طلبك */
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* قائمة الروابط تحت كل عنصر */
+.footer-link ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-link ul li a {
+  color: #ada8a8;
+  text-decoration: none;
+  display: block;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+.footer-link ul li a:hover {
+  color: #fff;
+}
+
+/* نصوص الفقرة داخل المجموعة */
+.footer-link p {
+  color: #ada8a8;
+  margin: 5px 0;
+}
+
+/* نص أسفل الفوتر */
+.footer-bottom {
+  text-align: center;
+  font-size: 12px;
+  color: #ccc;
+}
+
+/* --- MEDIA QUERIES --- */
+
+/* للشاشات المتوسطة (مثل التابلت) */
+@media (max-width: 992px) {
+    .page {
+        padding: 30px;
+    }
+    
+    .modal-layout {
+        flex-direction: column; /* جعل الصورة فوق التفاصيل في النافذة */
+        text-align: center;
+    }
+
+    .side-panel {
+        width: 320px; /* تقليل عرض البانل قليلاً */
+    }
+    .side-panel ul {
+         direction: rtl;
+         text-align: right;
+    }
+    .cart-btn{
+        border-radius: 30px;
+    }
+    .cart-btn:hover{
+        background: #e2f4ff;
+        box-shadow: 0 0 15px #379bda;
+    }
+    
+}
+
+/* للشاشات الصغيرة (مثل الجوال) */
+@media (max-width: 600px) {
+    .navbar{
+        font-size: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .nav-links a{
+        font-size: 17px;
+    }
+    .nav-right-group{
+        padding-top: 15px;
+        font-size: 15px;
+    }
+    .nav-left-icons{
+        padding-top: 15px;
+        font-size: 15px;
+    }
+    .menu-icon{
+        padding-right: 0px;
+        padding-left: 15px;
+    }
+    .icon-item{
+        font-size: 19px;
+    }
+    .badge{
+        font-size: 13px;
+    }
+    .logo{
+        padding-left: 0px;
+        font-size: 20px;
+    }
+    .icon-group{
+        font-size: 2px;
+    }
+    h1 {
+        font-size: 28px;
+        text-align: center;
+    }
+
+    .grid {
+        grid-template-columns: 1fr; /* كارد واحد في كل صف */
+        gap: 20px;
+
+    }
+
+    .card {
+        height: auto; /* ترك الطول يتحدد حسب المحتوى */
+        padding: 20px;
+        
+    }
+    .img-box {
+        display: flex;
+        justify-content: center; 
+        align-items: center;     
+        width: 100%;             
+        margin: 0 auto;         
+    }
+    .card img {
+        width: 180px;   
+        margin: 0;      
+    }
+
+    /* تعديلات البانل الجانبي للجوال */
+    .side-panel {
+        width: 290px; /* يأخذ عرض الشاشة بالكامل */
+        right: -100%; 
+        padding: 20px;
+        
+    }
+    .side-panel ul {
+         direction: rtl;
+         text-align: right;
+    }
+    .side-panel img{
+        width: 100px;
+    }
+   
+   #pBattery{
+    font-size: 12px;
+   }
+   #pWater{
+        font-size: 12px;
+   }
+   #pHeart{
+        font-size: 12px;
+   }
+   #pGPS{font-size: 12px;}
+
+    /* تعديلات النافذة المنبثقة (Modal) للجوال */
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+        max-height: 90vh;
+        overflow-y: auto; /* السماح بالتمرير إذا كان المحتوى طويلاً */
+    }
+
+    .main-img {
+        height: 180px;
+    }
+    .cart-btn{
+        border-radius: 30px;
+    }
+    .cart-btn:hover{
+        background: #e2f4ff;
+        box-shadow: 0 0 15px #379bda;
+    }
+    .filter-buttons .btn {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+    .footer-nav {
+    justify-content: space-around;
+  }
+  .footer-nav {
+    flex-direction: column; /* العناصر تصير تحت بعض */
+    align-items: center;
+    gap: 20px;
+  }
+
+  .footer-link {
+    text-align: center;
+  }
+}

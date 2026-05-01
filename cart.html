@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السلة - TIC TAC</title>
+    <!-- ربط ملف الستايل -->
+    <link rel="stylesheet" href="cart.css">
+</head>
+
+<body>
+
+    <h1>🛒 سلة المشتريات</h1>
+
+    <div id="cartItems"></div>
+    
+    <h2 id="totalPrice"></h2>
+    <button id="checkoutBtn" onclick="openModal()">إتمام عملية الشراء</button>
+
+<!-- نافذة الفورم (Modal) -->
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>بيانات التوصيل</h2>
+        <form action="save_order.php" method="POST">
+            <input type="text" name="name" placeholder="الاسم الكامل" required>
+            <input type="text" name="phone" placeholder="رقم الهاتف" required>
+            <textarea name="address" placeholder="العنوان بالتفصيل" required></textarea>
+            
+            <!-- حقل مخفي لإرسال الإجمالي تلقائياً -->
+            <input type="hidden" name="total" id="hiddenTotal">
+            
+            <button type="submit" class="submit-order">تأكيد الطلب</button>
+        </form>
+    </div>
+</div>
+
+    <script src="hov.js"></script>
+
+</body>
+</html>
