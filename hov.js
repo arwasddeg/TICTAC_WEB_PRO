@@ -91,7 +91,7 @@ function goProducts() {
 
 function goCart() {
   const theme = localStorage.getItem("userTheme");
-  window.location.href = (theme === "brown") ? "cart2.html" : "cart.html";
+  window.location.href = (theme === "brown") ? "cart2.html" : "cart.php";
 }
 
 /* ===================================================== */
@@ -167,14 +167,11 @@ document.addEventListener("click", function(e) {
 function addToCart(id, name, price) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    // نلقاو لو المنتج موجود
     let existing = cart.find(item => item.id === id);
 
     if (existing) {
-        // لو موجود → زيد الكمية
         existing.quantity += 1;
     } else {
-        // لو جديد → أضف
         cart.push({
             id: id,
             name: name,
@@ -185,7 +182,9 @@ function addToCart(id, name, price) {
 
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    // alert("تمت الإضافة للسلة ✅");
+   
+
+    updateCartCount();
 }
 // تحديث العداد
 function updateCartCount() {
@@ -273,9 +272,27 @@ document.addEventListener("DOMContentLoaded", () => {
 // وظائف فتح وإغلاق الـ Popup
 
 
-
 function openCheckout() {
-    document.getElementById("popup").style.display = "block";
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (cart.length === 0) {
+        alert("السلة فارغة!");
+        return;
+    }
+
+    fetch("goCheckout.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            cart: cart
+        })
+    })
+    .then(() => {
+        window.location.href = "goCheckout.php";
+    });
 }
 
 function closePopup() {

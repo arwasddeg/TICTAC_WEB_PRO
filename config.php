@@ -32,12 +32,12 @@ $table_products = "CREATE TABLE IF NOT EXISTS products (
 mysqli_query($conn, $table_products);
 
 // 5. كود إنشاء جدول الآدمن (اختياري الآن ولكن مفيد للمستقبل)
-$table_admin = "CREATE TABLE IF NOT EXISTS admins (
-    id INT(11) AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(255) NOT NULL
-)";
-mysqli_query($conn, $table_admin);
+// $table_admin = "CREATE TABLE IF NOT EXISTS admins (
+//     id INT(11) AUTO_INCREMENT PRIMARY KEY,
+//     username VARCHAR(50) NOT NULL,
+//     password VARCHAR(255) NOT NULL
+// )";
+// mysqli_query($conn, $table_admin);
 // 6. كود إنشاء جدول الطلبات
 $table_orders = "CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -52,11 +52,9 @@ mysqli_query($conn, $table_orders);
 // 7. كود إنشاء جدول المستخدمين
 $table_users = "CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    phone VARCHAR(50),
-    address TEXT,
-    password VARCHAR(255) NOT NULL,
+    name VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
+    password VARCHAR(255),
     role ENUM('admin','user') DEFAULT 'user',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
@@ -67,13 +65,13 @@ $check_admin = mysqli_query($conn, "SELECT * FROM admins WHERE username='admin'"
 
 if (mysqli_num_rows($check_admin) == 0) {
     // كلمة المرور هنا 123456، يمكنكِ تغييرها لاحقاً
-    $insert_admin = "INSERT INTO admins (username, password) VALUES ('admin', '123456')";
+    $insert_admin = "INSERT INTO admins (username, password) VALUES ('admin@gmail.com', '123456')";
     
     if(mysqli_query($conn, $insert_admin)) {
         echo "<script>console.log('تم إنشاء حساب الأدمن الافتراضي بنجاح');</script>";
     }
 }
-$table_users = "CREATE TABLE IF NOT EXISTS cart (
+$table_cart = "CREATE TABLE IF NOT EXISTS cart (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     product_id INT,
@@ -81,5 +79,15 @@ $table_users = "CREATE TABLE IF NOT EXISTS cart (
     FOREIGN KEY (user_id) REFERENCES users(id)
 )";
 mysqli_query($conn, $table_users);
+
+$check_admin = mysqli_query($conn, "SELECT * FROM users WHERE email='admin@gmail.com'");
+
+if (mysqli_num_rows($check_admin) == 0) {
+
+    $insert_admin = "INSERT INTO users (name, email, password, role)
+    VALUES ('Admin', 'admin@gmail.com', '123456', 'admin')";
+
+    mysqli_query($conn, $insert_admin);
+}
 
 ?>

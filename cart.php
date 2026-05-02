@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -96,8 +97,7 @@ function openCheckout() {
 
     // توجيه المستخدم لصفحة اللوق إن الخاصة بكِ
     // تأكدي من كتابة اسم ملف اللوق إن الصحيح (مثلاً login.php أو login.html)
-    window.location.href = "login.html"; 
-}
+window.location.href = "goCheckout.php";}
 function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
