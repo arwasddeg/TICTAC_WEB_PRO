@@ -6,7 +6,7 @@ if (isset($_POST['checkout'])) {
     $product = $_POST['product'];
 
     // رقمك في واتساب
-    $whatsapp_number = "0919233764";
+    $whatsapp_number = "218919233764";
 
     // الرسالة
     $message = "طلب جديد:\n";

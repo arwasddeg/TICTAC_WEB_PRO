@@ -71,3 +71,6 @@ h1 {
     opacity: 0.6;
     grid-column: 1 / -1;
 }
+body { display: flex; flex-direction: column; min-height: 100vh; }
+.footer { margin-top: auto; }
+

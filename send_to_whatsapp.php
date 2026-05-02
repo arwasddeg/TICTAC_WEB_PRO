@@ -78,7 +78,8 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['email'])) {
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: transform 0.2s, background 0.2s;
+            transition: transform 0.2s,
+           
         }
         .btn:hover {
             transform: translateY(-2px);
@@ -141,6 +142,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['email'])) {
             <div class="message">جاري تجهيز طلبك...</div>
         </div>
         
+        
         <div id="success-state" style="display: none;">
             <div style="font-size: 60px;">✅</div>
             <div class="message success">تم تجهيز طلبك بنجاح!</div>
@@ -150,7 +152,14 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['email'])) {
                 <a href="cart.php" class="btn btn-secondary">🛒 العودة للسلة</a>
             </div>
         </div>
-        
+        <!-- إضافة حقل "رقم الهاتف" و "العنوان" للرسالة -->
+        <div style="margin-top:20px; text-align:right;">
+    <label>📱 رقم الهاتف:</label>
+    <input type="text" id="customerPhone" placeholder="مثال: 091xxxxxxx" style="width:100%; padding:10px; margin-bottom:10px; border-radius:8px;">
+
+    <label>📍 العنوان:</label>
+    <input type="text" id="customerAddress" placeholder="مثال: طرابلس - بن عاشور" style="width:100%; padding:10px; border-radius:8px;">
+</div>
         <div id="error-state" style="display: none;">
             <div style="font-size: 60px;">⚠️</div>
             <div class="message error">السلة فارغة!</div>
@@ -171,7 +180,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['email'])) {
     </div>
 
     <script>
-        const whatsappNumber = "218912958230";
+        const whatsappNumber = "218919233764";
         const userEmail = "<?php echo isset($_SESSION['email']) ? addslashes($_SESSION['email']) : 'غير محدد'; ?>";
         const userId = "<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'غير محدد'; ?>";
         
@@ -221,30 +230,38 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['email'])) {
         }
         
         function prepareWhatsAppMessage() {
-            let message = "🛒 *طلب جديد من متجر TICTAC*\n\n";
-            message += "📧 *البريد الإلكتروني:* " + userEmail + "\n";
-            message += "🆔 *رقم المستخدم:* " + userId + "\n";
-            message += "📅 *تاريخ الطلب:* " + new Date().toLocaleString('ar-EG') + "\n";
-            message += "━━━━━━━━━━━━━━━━━━━━\n";
-            message += "*المنتجات المطلوبة:*\n\n";
-            
-            let total = 0;
-            currentCart.forEach((item, index) => {
-                let subtotal = item.price * item.quantity;
-                total += subtotal;
-                message += `${index + 1}. 🕐 *${item.name}*\n`;
-                message += `   • الكمية: ${item.quantity}\n`;
-                message += `   • سعر الوحدة: €${item.price}\n`;
-                message += `   • المجموع: €${subtotal.toFixed(2)}\n\n`;
-            });
-            
-            message += "━━━━━━━━━━━━━━━━━━━━\n";
-            message += `💰 *الإجمالي النهائي:* €${total.toFixed(2)}\n\n`;
-            message += "📦 *ملاحظة:* يرجى تأكيد الطلب وتحديد طريقة الدفع\n";
-            message += "🙏 *شكراً لتسوقكم مع TICTAC*";
-            
-            return message;
-        }
+
+    let phone = document.getElementById("customerPhone").value;
+    let address = document.getElementById("customerAddress").value;
+
+    if (!phone || !address) {
+        alert("⚠️ لازم تعبي رقم الهاتف والعنوان");
+        return null;
+    }
+
+    let message = "🛒 *طلب جديد من متجر TICTAC*\n\n";
+    message += "📧 *البريد:* " + userEmail + "\n";
+    message += "📱 *الهاتف:* " + phone + "\n";
+    message += "📍 *العنوان:* " + address + "\n";
+    message += "━━━━━━━━━━━━━━━━━━━━\n";
+    message += "*المنتجات:*\n\n";
+
+    let total = 0;
+
+    currentCart.forEach((item, index) => {
+        let subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        message += `${index + 1}. ${item.name}\n`;
+        message += `الكمية: ${item.quantity}\n`;
+        message += `السعر: €${item.price}\n\n`;
+    });
+
+    message += "━━━━━━━━━━━━━━━━━━━━\n";
+    message += `💰 الإجمالي: €${total.toFixed(2)}\n`;
+
+    return message;
+}
         
         function saveOrderToDatabase() {
             let orderData = {
@@ -284,26 +301,22 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['email'])) {
         }
         
         function redirectToWhatsApp() {
-            const message = prepareWhatsAppMessage();
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-            
-            // حفظ الطلب في قاعدة البيانات
-            saveOrderToDatabase();
-            
-            // مسح السلة
-            localStorage.removeItem("cart");
-            
-            // فتح واتساب
-            window.open(whatsappUrl, '_blank');
-            
-            // عرض رسالة النجاح
-            document.getElementById('summary-state').style.display = 'none';
-            document.getElementById('success-state').style.display = 'block';
-            
-            // تحديث عداد السلة
-            updateCartBadgeInOpener();
-        }
+
+    const message = prepareWhatsAppMessage();
+
+    if (!message) return; // لو ما عباش البيانات
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    saveOrderToDatabase();
+    localStorage.removeItem("cart");
+
+    window.open(whatsappUrl, '_blank');
+
+    document.getElementById('summary-state').style.display = 'none';
+    document.getElementById('success-state').style.display = 'block';
+}
         
         function updateCartBadgeInOpener() {
             if (window.opener && !window.opener.closed) {

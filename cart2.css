@@ -588,3 +588,7 @@ position: relative; /* هذا هو السر: يلغي تداخل العناصر 
     justify-content: flex-start;
   }
 }
+
+body { display: flex; flex-direction: column; min-height: 100vh; }
+.footer { margin-top: auto; }
+

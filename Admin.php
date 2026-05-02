@@ -175,7 +175,7 @@
     <div class="content-section">
         <div class="section-header">
             <h2>إدارة المخزون</h2>
-            <a href="AddNewWatch.html" class="btn-add">+ إضافة ساعة جديدة</a>
+            <a href="AddNewWatch.php" class="btn-add">+ إضافة ساعة جديدة</a>
         </div>
 
         <table>

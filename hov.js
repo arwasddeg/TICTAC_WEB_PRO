@@ -80,8 +80,7 @@ function toggleFavorite(el) {
 /*          الانتقال بين الصفحات حسب الثيم               */
 /* ===================================================== */
 function goLogin() {
-  const theme = localStorage.getItem("userTheme");
-  window.location.href = (theme === "brown") ? "loginBrown.html" : "login.html";
+  window.location.href = "login.html";
 }
 
 function goProducts() {
@@ -281,18 +280,7 @@ function openCheckout() {
         return;
     }
 
-    fetch("goCheckout.php", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            cart: cart
-        })
-    })
-    .then(() => {
-        window.location.href = "goCheckout.php";
-    });
+    window.location.href = "check_login.php";
 }
 
 function closePopup() {
