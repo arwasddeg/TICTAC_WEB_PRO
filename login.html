@@ -29,8 +29,8 @@
       <div class="dropdown">
           <a href="javascript:void(0)" class="dropbtn">المنتجات ▾</a>
           <div class="dropdown-content">
-              <a href="MprPage.html?type=modern">ساعات حديثة</a>
-              <a href="Sp.html?type=sport">ساعات رياضية</a>
+              <a href="MprPage.php">ساعات حديثة</a>
+              <!-- <a href="Sp.html?type=sport">ساعات رياضية</a> -->
           </div>
       </div>
 
@@ -41,9 +41,9 @@
   <!-- الأيقونات -->
   <div class="nav-left-icons">
       <div class="icon-group">
-          <div class="icon-item">♡ <span class="badge">8</span></div>
-          <div class="icon-item" onclick="goLogin()">👤</div>
-          <div class="icon-item" onclick="goCart()">🛒 <span class="badge">3</span></div>
+          <div class="icon-item" onclick="location.href='cart.php'">🛒 <span class="badge" id="cart-badge">0</span></div>
+            <div class="icon-item" onclick="location.href='login.html'">👤</div>
+            <div class="icon-item">♡ <span class="badge" id="fav-badge">0</span></div>
       </div>
   </div>
 
@@ -66,7 +66,7 @@
    <form action="login.php" method="POST">
     <input type="email" name="email" placeholder="البريد الإلكتروني" required>
     <input type="password" name="password" placeholder="كلمة المرور" required>
-    <button type="submit">دخول</button>
+    <button type="submit" class="login-btn">دخول</button>
 </form>
 
 

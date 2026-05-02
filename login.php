@@ -17,15 +17,21 @@ if (mysqli_num_rows($result) > 0) {
         $_SESSION['email'] = $user['email'];
         $_SESSION['role'] = $user['role'];
 
-        // 👇 هنا السحر
+        // 🔥🔥🔥 أهم تعديل: التحقق من دور الأدمن أولاً 🔥🔥🔥
+        if ($user['role'] == 'admin') {
+            header("Location: admin.php");
+            exit;
+        }
+        
+        // باقي الكود للمستخدم العادي
         if (isset($_SESSION['from_checkout'])) {
             unset($_SESSION['from_checkout']);
             header("Location: send_to_whatsapp.php");
         } else {
             header("Location: index.html");
         }
-
         exit;
+        
     } else {
         echo "<script>alert('كلمة المرور خطأ'); window.history.back();</script>";
     }

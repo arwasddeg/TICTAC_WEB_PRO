@@ -1,4 +1,13 @@
-<?php include 'config.php'; ?>
+<?php 
+session_start(); // 🔥 أضف هذا السطر في البداية
+include 'config.php';
+
+// 🔥 حماية الصفحة: التأكد أن المستخدم أدمن
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
+    header("Location: login.html");
+    exit;
+}
+?>
 <!DOCTYPE html>
 
 <html lang="ar" dir="rtl">
@@ -47,7 +56,13 @@
         }
 
         .logo span { color: var(--accent-color); }
-
+        .logo a{
+            text-decoration: none;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
         /* كروت الإحصائيات */
         .stats-grid {
             display: grid;
@@ -149,7 +164,8 @@
 
 <div class="admin-container">
     <div class="header">
-        <div class="logo">TIC<span>TAC</span> - Admin</div>
+        <div class="logo"><a href="index.html">TIC</a><span>TAC</span>
+         - Admin</div>
         <div class="admin-info">مرحباً بك في لوحة الإدارة</div>
     </div>
 
