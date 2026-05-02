@@ -163,15 +163,18 @@ document.addEventListener("click", function(e) {
 
 // ===================== CART SYSTEM =====================
 
-// إضافة منتج
+// إضافة منتج للسلة
 function addToCart(id, name, price) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+    // نلقاو لو المنتج موجود
     let existing = cart.find(item => item.id === id);
 
     if (existing) {
+        // لو موجود → زيد الكمية
         existing.quantity += 1;
     } else {
+        // لو جديد → أضف
         cart.push({
             id: id,
             name: name,
@@ -182,102 +185,95 @@ function addToCart(id, name, price) {
 
     localStorage.setItem("cart", JSON.stringify(cart));
 
-    updateCartCount();
+    // alert("تمت الإضافة للسلة ✅");
 }
-// تحديث رقم السلة فوق
+// تحديث العداد
 function updateCartCount() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let count = 0;
-
-    cart.forEach(item => {
-        count += item.quantity;
-    });
-
+    let count = cart.reduce((acc, item) => acc + item.quantity, 0);
     let badge = document.querySelector(".badge");
     if (badge) badge.innerText = count;
 }
 
-// فتح صفحة الكارت
-function goCart() {
-    window.location.href = "cart.html";
-}
+// تحميل وعرض الكارت
+function loadCart() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let container = document.getElementById("cartItems");
+    let totalDisplay = document.getElementById("totalPrice"); // توحيد الـ ID
 
-// تحميل الكارت في الصفحة
- function loadCart() {
-        let cart = JSON.parse(localStorage.getItem("cart"));
-        let container = document.getElementById("cartItems");
-        let totalDisplay = document.getElementById("totalPrice");
+    if (!container) return; // لضمان عدم العمل في صفحات أخرى
 
-        if (!cart || cart.length === 0) {
-            container.innerHTML = "<p class='empty-msg'>السلة فارغة حالياً..</p>";
-            totalDisplay.style.display = "none";
-            return;
-        }
-
-        let total = 0;
-        container.innerHTML = ""; // تنظيف الحاوية قبل العرض
-
-        cart.forEach(item => {
-            total += item.price * item.quantity;
-
-            // إنشاء الكرت بنفس كلاسات الستايل الجديد
-            container.innerHTML += `
-                <div class="cart-item">
-                    <h3>${item.name}</h3>
-                    <p>السعر الفردي: €${item.price}</p>
-                    <p>الكمية: ${item.quantity}</p>
-                    <p style="color: #fff; font-weight: bold; margin-top:10px;">
-                        المجموع: €${(item.price * item.quantity).toFixed(2)}
-                    </p>
-                </div>
-            `;
-        });
-
-        totalDisplay.innerText = "الإجمالي النهائي: €" + total.toFixed(2);
+    if (cart.length === 0) {
+        container.innerHTML = "<p style='color:white; text-align:center;'>السلة فارغة حالياً..</p>";
+        if (totalDisplay) totalDisplay.innerText = "€0.00";
+        return;
     }
 
-    // loadCart();
+    let total = 0;
+    container.innerHTML = cart.map((item, index) => {
+        total += parseFloat(item.price) * parseInt(item.quantity);
+        return `
+            <div class="cart-card">
+                <div class="product-info">
+                    <h3>${item.name}</h3>
+                    <p>السعر: €${item.price} | الكمية: ${item.quantity}</p>
+                </div>
+                <button class="remove-btn" onclick="removeItem(${index})">حذف</button>
+            </div>
+        `;
+    }).join('');
+
+    if (totalDisplay) totalDisplay.innerText = "€" + total.toFixed(2);
+}
+
 // حذف منتج
 function removeItem(index) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
     cart.splice(index, 1);
-
     localStorage.setItem("cart", JSON.stringify(cart));
-
     loadCart();
     updateCartCount();
 }
 
-// تحميل تلقائي
-document.addEventListener("DOMContentLoaded", () => {
-    updateCartCount();
-    loadCart();
-});
-function sendOrder() {
-    let name = prompt("ادخل اسمك");
-    let phone = prompt("رقمك");
-    let address = prompt("عنوانك");
+// معالجة الطلب وإرساله للداتابيز
+function processOrder() {
+    let name = document.getElementById("custName").value;
+    let phone = document.getElementById("custPhone").value;
+    let address = document.getElementById("custAddress").value;
+    // جلب الإجمالي من العنصر الموحد
+    let totalElement = document.getElementById("totalPrice");
+    let totalText = totalElement ? totalElement.innerText.replace("€", "") : "0";
 
-    let total = document.getElementById("totalPrice").innerText.replace("€", "");
+    if (!name || !phone || !address) return alert("يرجى ملء جميع البيانات");
 
     let formData = new FormData();
     formData.append("name", name);
     formData.append("phone", phone);
     formData.append("address", address);
-    formData.append("total", total);
+    formData.append("total", totalText);
 
-    fetch("save_order.php", {
-        method: "POST",
-        body: formData
-    })
+    fetch("save_order.php", { method: "POST", body: formData })
     .then(res => res.text())
     .then(data => {
-        alert(data);
-        localStorage.removeItem("cart"); // تفريغ السلة
-        location.reload();
-    });
+        alert("تم استلام طلبك بنجاح!");
+        localStorage.removeItem("cart");
+        window.location.href = "index.html";
+    })
+    .catch(err => console.error("Error:", err));
 }
+
+// تنفيذ الأوامر عند تحميل الصفحة
+document.addEventListener("DOMContentLoaded", () => {
+    updateCartCount();
+    if (document.getElementById("cartItems")) {
+        loadCart();
+    }
+});
+
+// وظائف فتح وإغلاق الـ Popup
+
+
+
 function openCheckout() {
     document.getElementById("popup").style.display = "block";
 }
@@ -285,3 +281,53 @@ function openCheckout() {
 function closePopup() {
     document.getElementById("popup").style.display = "none";
 }
+function handleAuth() {
+    const userVal = document.getElementById("username").value;
+    const passVal = document.getElementById("password").value;
+    const addressVal = document.getElementById("address") ? document.getElementById("address").value : "";
+    
+    // جلب بيانات السلة من الـ LocalStorage
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if (!userVal) {
+        alert("الرجاء إدخال اسم المستخدم أو الرقم");
+        return;
+    }
+
+    // تجهيز البيانات للإرسال لـ PHP
+    let formData = new FormData();
+    formData.append("user", userVal);
+    formData.append("pass", passVal);
+    formData.append("address", addressVal);
+    formData.append("cartData", JSON.stringify(cart));
+
+    // إرسال البيانات لملف المعالجة (الذي سننشئه باسم check_auth.php)
+    fetch("check_auth.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "admin") {
+            alert("مرحباً أيها المسؤول!");
+            window.location.href = "admin_dashboard.php";
+        } else if (data.status === "success_order") {
+            alert("تم تسجيل حسابك وتأكيد طلبك بنجاح!");
+            localStorage.removeItem("cart"); // تفريغ السلة بعد النجاح
+            window.location.href = "index.html";
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(err => console.error("Error:", err));
+}
+
+// دالة ذكية لإظهار حقل العنوان إذا لم يكن أدمن
+document.getElementById("username").addEventListener("input", function() {
+    const extra = document.getElementById("extraFields");
+    if (this.value !== "admin") {
+        extra.style.display = "block";
+    } else {
+        extra.style.display = "none";
+    }
+});

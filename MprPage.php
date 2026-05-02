@@ -36,8 +36,9 @@ background: linear-gradient(to right bottom,
       <div class="dropdown">
           <a href="javascript:void(0)" class="dropbtn">المنتجات ▾</a>
           <div class="dropdown-content">
-              <a href="MprPage.html?type=modern">ساعات حديثة</a>
-              <a href="Sp.html?type=sport">ساعات رياضية</a>
+              <a href="MprPage.php?type=modern">ساعات حديثة</a>
+
+              
           </div>
       </div>
 

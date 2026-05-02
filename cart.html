@@ -1,41 +1,156 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>السلة - TIC TAC</title>
-    <!-- ربط ملف الستايل -->
-    <link rel="stylesheet" href="cart.css">
+<meta charset="UTF-8">
+<title>Cart</title>
 </head>
+<style>
+    body {
+    background: radial-gradient(circle at center, #0a1f33 0%, #020a10 100%);
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    direction: rtl;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+#cartItems {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+}
+#totalPrice {
+    margin-top: 40px;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 1.5rem;
+}
+
+</style>
 
 <body>
 
-    <h1>🛒 سلة المشتريات</h1>
+<h1>🛒 السلة</h1>
 
-    <div id="cartItems"></div>
+<div id="cartItems"></div>
+<h2 id="totalPrice"></h2>
+<button class="checkout-btn" onclick="openCheckout()">
+        إتمام عملية الشراء
+    </button>
+<script>
+// دالة تحميل وعرض السلة
+function loadCart() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let container = document.getElementById("cartItems");
+    let totalDisplay = document.getElementById("totalPrice");
+
+    if (cart.length === 0) {
+        container.innerHTML = "السلة فارغة";
+        totalDisplay.innerText = "Total: €0";
+        return;
+    }
+
+    let total = 0;
+    container.innerHTML = "";
+
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+
+        container.innerHTML += `
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                padding:10px 20px;
+                border-bottom:1px solid rgba(255,255,255,0.2);
+            ">
+                <span>${item.name}</span>
+                <span>× ${item.quantity}</span>
+                <span>€${item.price}</span>
+            </div>
+        `;
+    });
+
+    totalDisplay.innerText = "Total: €" + total.toFixed(2);
+}
+
+// وظائف النافذة المنبثقة (Popup)
+function openCheckout() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
     
-    <h2 id="totalPrice"></h2>
-    <button id="checkoutBtn" onclick="openModal()">إتمام عملية الشراء</button>
+    if (cart.length === 0) {
+        alert("السلة فارغة، أضف بعض المنتجات أولاً!");
+        return;
+    }
 
-<!-- نافذة الفورم (Modal) -->
-<div id="orderModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>بيانات التوصيل</h2>
-        <form action="save_order.php" method="POST">
-            <input type="text" name="name" placeholder="الاسم الكامل" required>
-            <input type="text" name="phone" placeholder="رقم الهاتف" required>
-            <textarea name="address" placeholder="العنوان بالتفصيل" required></textarea>
-            
-            <!-- حقل مخفي لإرسال الإجمالي تلقائياً -->
-            <input type="hidden" name="total" id="hiddenTotal">
-            
-            <button type="submit" class="submit-order">تأكيد الطلب</button>
-        </form>
-    </div>
+    // توجيه المستخدم لصفحة اللوق إن الخاصة بكِ
+    // تأكدي من كتابة اسم ملف اللوق إن الصحيح (مثلاً login.php أو login.html)
+    window.location.href = "login.html"; 
+}
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+// دالة تأكيد الطلب وإرساله للـ PHP
+function sendOrder() {
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let address = document.getElementById("address").value;
+    let total = document.getElementById("totalPrice").innerText.replace("Total: €", "");
+
+    if(!name || !phone || !address) {
+        alert("الرجاء إدخال كافة البيانات");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("name", name);
+    formData.append("phone", phone);
+    formData.append("address", address);
+    formData.append("total", total);
+
+    fetch("save_order.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.text())
+    .then(data => {
+        alert("تم إرسال طلبك بنجاح!");
+        localStorage.removeItem("cart"); // تفريغ السلة بعد الشراء
+        location.reload(); // إعادة تحميل الصفحة
+    })
+    .catch(err => {
+        console.error("خطأ:", err);
+        alert("حدث خطأ أثناء إرسال الطلب");
+    });
+}
+
+// تشغيل الدالة عند فتح الصفحة
+loadCart();
+</script>
+
+
+<div id="popup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999;">
+  <div style="background:#1a3a4f; color:white; padding:30px; width:320px; margin:100px auto; border-radius:15px; text-align:center; border:1px solid #00d4ff;">
+    <h3 style="color:#00d4ff">أدخل بياناتك</h3>
+    <input id="name" placeholder="الاسم" style="width:90%; padding:10px; margin-bottom:10px; border-radius:5px; border:none;"><br>
+    <input id="phone" placeholder="رقم الهاتف" style="width:90%; padding:10px; margin-bottom:10px; border-radius:5px; border:none;"><br>
+    <input id="address" placeholder="العنوان" style="width:90%; padding:10px; margin-bottom:20px; border-radius:5px; border:none;"><br>
+    <button onclick="sendOrder()" style="background:#00d4ff; color:black; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">تأكيد</button>
+    <button onclick="closePopup()" style="background:transparent; color:white; border:none; margin-right:10px; cursor:pointer;">إلغاء</button>
+  </div>
 </div>
-
-    <script src="hov.js"></script>
 
 </body>
 </html>

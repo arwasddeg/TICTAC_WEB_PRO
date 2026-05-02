@@ -31,7 +31,7 @@
           <a href="javascript:void(0)" class="dropbtn">المنتجات ▾</a>
           <div class="dropdown-content">
               
-              <a href="MprPage.php?type=modern">ساعات حديثة</a>
+              <a href="MprPage.php">ساعات حديثة</a>
               <!-- <a href="Sp.html?type=sport">ساعات رياضية</a> -->
           </div>
       </div>
@@ -45,7 +45,7 @@
       <div class="icon-group">
           <div class="icon-item">♡ <span class="badge">8</span></div>
           <div class="icon-item" onclick="goLogin()">👤</div>
-          <div class="icon-item" onclick="goCart()">🛒 <span class="badge">3</span></div>
+          <div class="icon-item" onclick="goCart()">🛒 <span class="badge" id="cart-badge">0</span></div>
       </div>
   
 
@@ -101,7 +101,7 @@
 </p>
     
   </div>
-      <button class="btn-more">اشتري الآن</button>
+      <button class="btn-more" onclick="addToCart(1, 'Serpenti Spiga', 1500)">اشتري الآن</button>
     </div>
     <div class="card">
       <div class="card-heart-wrapper">
@@ -115,7 +115,7 @@
     <p>زيج مثالي بين التصميم الرياضي واللمسة الكلاسيكية، تناسب جميع الإطلالات.</p>
  
   </div>
-      <button class="btn-more">اشتري الآن</button>
+      <button class="btn-more" onclick="addToCart(2, 'Sector 240 Classic', 350)">اشتري الآن</button>
     </div>
     <div class="card">
       <div class="card-heart" onclick="toggleFavorite(this)">♡</div>
@@ -127,7 +127,7 @@
     <p>ساعة سويسرية كلاسيكية تجسد الأناقة الدائمة، مثالية للمناسبات الرسمية والعمل</p>
    
   </div>
-      <button class="btn-more">اشتري الآن</button>
+      <button class="btn-more" onclick="addToCart(3, 'Tissot Classic Dream', 450)">اشتري الآن</button>
     </div>
     <div class="card">
       <div class="card-heart" onclick="toggleFavorite(this)">♡</div>
@@ -139,7 +139,7 @@
     <p>ساعة ذكية أنيقة تجمع بين التصميم العصري والوظائف الرياضية المتقدمة، مثالية للنساء اللواتي يبحثن عن الأناقة والأداء</p>
    
   </div>
-      <button class="btn-more">اشتري الآن</button>
+      <button class="btn-more" onclick="addToCart(4, 'Power plink', 200)">اشتري الآن</button>
     </div>
   </div>
 </section>
@@ -166,7 +166,7 @@
         <span class="limited">لفترة محدودة</span>
         <span class="discount">تخفيض</span>
         <span class="percent">30%</span>
-        <button class="discount-btn">اشترِي الآن</button>
+        <button class="discount-btn" onclick="addToCart(5, 'BOSS Watch', 800)">اشترِي الآن</button>
       </div>
     </div>
   </div>
@@ -184,7 +184,7 @@
         <span class="limited">لفترة محدودة</span>
         <span class="discount">تخفيض</span>
         <span class="percent">30%</span>
-        <button class="discount-btn">اشترِي الآن</button>
+        <button class="discount-btn" onclick="addToCart(6, 'Women Deluxe', 600)">اشترِي الآن</button>
       </div>
     </div>
   </div>

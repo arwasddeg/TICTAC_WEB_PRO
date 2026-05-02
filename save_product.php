@@ -1,4 +1,5 @@
 <?php
+
 include 'config.php'; // سيقوم بإنشاء القاعدة والجداول تلقائياً عند أول تشغيل
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
