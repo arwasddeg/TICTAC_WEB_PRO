@@ -1,16 +1,13 @@
 <?php
 session_start();
 
-// 🔥 ديما نقولو إنه جاية من checkout
-$_SESSION['from_checkout'] = true;
-
-// لو مش مسجلة دخول
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+// التحقق من تسجيل الدخول
+if (!isset($_SESSION['user_id']) && !isset($_SESSION['email'])) {
+    header("Location: login.html");
     exit;
 }
 
-// لو مسجلة دخول → واتساب مباشرة
+// التوجيه لصفحة الواتساب
 header("Location: send_to_whatsapp.php");
 exit;
 ?>

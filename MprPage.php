@@ -1,242 +1,237 @@
-<?php include 'config.php'; ?>
+<?php 
+include 'config.php'; 
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="MprPage.css">
-    <title>Sport Watches</title>
+    <title>ساعات حديثة | TICTAC</title>
 </head>
-<body style="
-background: linear-gradient(to right bottom,
-    #2b6081,
-    #14425f,
-    #030f16 ,
-    #03111e,
-    #031f30,
-    #3065a5,
-    #2e4968
-   );
-    background-size: cover;
-    background-attachment: fixed;
-">
- <header class="navbar">
+<body style="background: linear-gradient(to right bottom, #2b6081, #14425f, #030f16, #03111e, #031f30, #3065a5, #2e4968); background-size: cover; background-attachment: fixed;">
 
-  <!-- الجهة اليمنى: شعار + زر الموبايل -->
-  <div class="nav-right-group">
-      <div class="logo">TIC<span>TAC</span></div>
-      <div class="menu-icon">☰</div>
-  </div>
+<header class="navbar">
+    <div class="nav-right-group">
+        <div class="logo">TIC<span>TAC</span></div>
+        <div class="menu-icon">☰</div>
+    </div>
 
-  <!-- الروابط -->
-  <nav class="nav-links">
-      <a href="index.html">الرئيسية</a>
+    <nav class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <div class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">المنتجات ▾</a>
+            <div class="dropdown-content">
+                <a href="MprPage.php?type=modern">ساعات حديثة</a>
+            </div>
+        </div>
+        <a href="aboutUs.html">من نحن</a>
+    </nav>
 
-      <!-- Dropdown المنتجات -->
-      <div class="dropdown">
-          <a href="javascript:void(0)" class="dropbtn">المنتجات ▾</a>
-          <div class="dropdown-content">
-              <a href="MprPage.php?type=modern">ساعات حديثة</a>
-              
-
-              
-          </div>
-      </div>
-
-     <a href="aboutUs.html">من نحن</a>
-
-  </nav>
-
-  <!-- الأيقونات -->
-  <div class="nav-left-icons">
-      <div class="icon-group">
-         <div class="icon-item" onclick="goCart()">🛒 <span class="badge">0</span></div>
-          <div class="icon-item" onclick="goLogin()">👤</div>
-          <div class="icon-item">♡ <span class="badge">8</span></div>
-      </div>
-  </div>
-
+    <div class="nav-left-icons">
+        <div class="icon-group">
+            <div class="icon-item" onclick="location.href='cart.php'">🛒 <span class="badge" id="cart-badge">0</span></div>
+            <div class="icon-item" onclick="location.href='login.html'">👤</div>
+            <div class="icon-item">♡ <span class="badge" id="fav-badge">0</span></div>
+        </div>
+    </div>
 </header>
 
 <section class="page">
-  <h1>ساعات حديثة</h1>
-<div class="filter-buttons">
+    <h1>ساعات حديثة</h1>
+    
     <div class="filter-buttons">
-    <button onclick="filterSelection('all')" class="btn">الكل</button>
-    <button onclick="filterSelection('men')" class="btn">رجالي</button>
-     <button onclick="filterSelection('women')" class="btn">نسائي</button> 
-     
-     
+        <button onclick="filterSelection('all')" class="btn">الكل</button>
+        <button onclick="filterSelection('men')" class="btn">رجالي</button>
+        <button onclick="filterSelection('women')" class="btn">نسائي</button> 
     </div>
-</div>
-<div class="grid">
-<?php
-$query = "SELECT * FROM products WHERE category = 'modern' ORDER BY id DESC";
-$result = mysqli_query($conn, $query);
 
-if(mysqli_num_rows($result) > 0){
-    while($row = mysqli_fetch_assoc($result)){
-?>
-    <div class="card">
-        <div class="img-box">
-            <img src="image/<?php echo $row['image']; ?>">
-        </div>
-        <h3><?php echo $row['name']; ?></h3>
-        <span>€<?php echo $row['price']; ?></span>
-<button onclick='addToCart(
-    <?php echo $row["id"]; ?>,
-    <?php echo json_encode($row["name"]); ?>,
-    <?php echo $row["price"]; ?>
-)'>
-أضف إلى السلة
-</button>
+    <div class="grid">
+    <?php
+    // جلب المنتجات حسب النوع (modern)
+    $query = "SELECT * FROM products WHERE category = 'modern' ORDER BY id DESC";
+    $result = mysqli_query($conn, $query);
 
-    </div>
-<?php
+    if(mysqli_num_rows($result) > 0){
+        while($row = mysqli_fetch_assoc($result)){
+            // نستخدم حقل الوصف أو حقول مخصصة للمواصفات إذا وجدت في قاعدة البيانات
+            // هنا وضعت قيم افتراضية، يمكنك استبدالها ببيانات من قاعدة البيانات
+            $category_type = (strpos($row['name'], 'نسائي') !== false) ? 'women' : 'men'; 
+    ?>
+            <!-- الرابط يفتح الـ Modal الخاص بالمنتج -->
+            <a href="#product<?php echo $row['id']; ?>" style="text-decoration: none; color: inherit;">
+                <div class="card" 
+                     data-category="<?php echo $category_type; ?>" 
+                     data-battery="48 ساعة" 
+                     data-water="مقاومة للماء 50m" 
+                     data-heart="متوفر" 
+                     data-gps="متوفر"
+                     onmouseover="showDetails(this)" 
+                     onmouseout="closeDetails()">
+                    
+                    <div class="img-box">
+                        <img src="image/<?php echo $row['image']; ?>" alt="<?php echo $row['name']; ?>">
+                    </div>
+                    <h3><?php echo $row['name']; ?></h3>
+                    <span>€<?php echo number_format($row['price'], 2); ?></span>
+                    
+                    <!-- الزر يستدعي دالة الإضافة للسلة من ملف hov.js -->
+                    <button onclick="event.preventDefault(); addToCart(<?php echo $row['id']; ?>, '<?php echo addslashes($row['name']); ?>', <?php echo $row['price']; ?>)">
+                        أضف إلى السلة
+                    </button>
+                </div>
+            </a>
+    <?php
+        }
+    } else {
+        echo "<p style='color:white;'>لا توجد ساعات حالياً في هذا القسم.</p>";
     }
-}else{
-    echo "<p>لا توجد ساعات حالياً</p>";
-}
-?>
-</div>
+    ?>
+    </div>
 </section>
 
+<!-- لوحة التفاصيل الجانبية (تظهر عند تمرير الماوس) -->
 <div id="sidePanel" class="side-panel">
     <div class="panel-content">
         <img id="panelImg" src="" alt="">
         <h2 id="panelTitle"></h2>
         <p id="panelSubtitle"></p>
         <hr>
-<div class="details-text">
-    <h4>المواصفات التقنية</h4> <ul>
-        <li id="pBattery"></li>
-        <li id="pWater"></li>
-        <li id="pHeart"></li>
-        <li id="pGPS"></li>
-    </ul>
-</div>
+        <div class="details-text">
+            <h4>المواصفات التقنية</h4> 
+            <ul>
+                <li id="pBattery"></li>
+                <li id="pWater"></li>
+                <li id="pHeart"></li>
+                <li id="pGPS"></li>
+            </ul>
+        </div>
     </div>
 </div>
+
+<!-- إنشاء الـ Modals لكل ساعة بشكل ديناميكي -->
 <?php
-// إعادة تنفيذ حلقة التكرار لإنشاء الـ Modals الخاصة بكل ساعة بشكل ديناميكي
-mysqli_data_seek($result, 0); // إعادة المؤشر للبداية
-while($row = mysqli_fetch_assoc($result)) {
-    $productId = $row['id'];
-    $image = "image/" . $row['image'];
-    ?>
-    <div id="product<?php echo $productId; ?>" class="modal-css">
-        <div class="modal-content">
-            <a href="#" class="close-btn">&times;</a>
-            <div class="modal-layout">
-                <div class="gallery-section">
-                    <img src="<?php echo $image; ?>" class="main-img">
-                </div>
-                <div class="info-section">
-                    <h2><?php echo $row['name']; ?></h2>
-                    <h3>€<?php echo number_format($row['price'], 2); ?></h3>
-                    <div class="desc">
-                        <p>
-                            <br>
-                            <dl>الوصف والمميزات</dl>
-                            <dt><?php echo $row['description']; ?></dt>
-                        </p>
+if(mysqli_num_rows($result) > 0) {
+    mysqli_data_seek($result, 0); 
+    while($row = mysqli_fetch_assoc($result)) {
+        $productId = $row['id'];
+?>
+        <div id="product<?php echo $productId; ?>" class="modal-css">
+            <div class="modal-content">
+                <a href="#" class="close-btn">&times;</a>
+                <div class="modal-layout">
+                    <div class="gallery-section">
+                        <img src="image/<?php echo $row['image']; ?>" class="main-img">
                     </div>
-                    <button class="cart-btn">أضف إلى السلة</button>
+                    <div class="info-section">
+                        <h2><?php echo $row['name']; ?></h2>
+                        <h3>€<?php echo number_format($row['price'], 2); ?></h3>
+                        <div class="desc">
+                            <strong>الوصف والمميزات:</strong>
+                            <p><?php echo nl2br($row['description']); ?></p>
+                        </div>
+                        <button class="cart-btn" onclick="addToCart(<?php echo $row['id']; ?>, '<?php echo addslashes($row['name']); ?>', <?php echo $row['price']; ?>)">
+                            أضف إلى السلة
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <?php
+<?php
+    }
 }
 ?>
+
 <script>
+    // وظيفة عرض التفاصيل الجانبية
     function showDetails(element) {
-    // جلب النصوص والصورة
-    document.getElementById('panelImg').src = element.querySelector('img').src;
-    document.getElementById('panelTitle').innerText = element.querySelector('h3').innerText;
-    document.getElementById('panelSubtitle').innerText = element.querySelector('span').innerText;
+        document.getElementById('panelImg').src = element.querySelector('img').src;
+        document.getElementById('panelTitle').innerText = element.querySelector('h3').innerText;
+        document.getElementById('panelSubtitle').innerText = element.querySelector('span').innerText;
 
-    // جلب المواصفات (تأكدي أن المسميات مطابقة للـ data- في الأعلى)
-    const battery = element.getAttribute('data-battery');
-    const water = element.getAttribute('data-water');
-    const heart = element.getAttribute('data-heart');
-    const gps = element.getAttribute('data-gps');
+        document.getElementById('pBattery').innerHTML = "🔋 الطاقة: " + element.getAttribute('data-battery');
+        document.getElementById('pWater').innerHTML = "✨ المواد: " + element.getAttribute('data-water');
+        document.getElementById('pHeart').innerHTML = "🛡️ الحماية: " + element.getAttribute('data-heart');
+        document.getElementById('pGPS').innerHTML = "⚓ الإطار: " + element.getAttribute('data-gps');
 
-// تعبئة الـ <li> في الـ HTML
-    document.getElementById('pBattery').innerHTML = "🔋 الطاقة: " + battery;
-    document.getElementById('pWater').innerHTML = "✨ المواد: " + water;
-    document.getElementById('pHeart').innerHTML = "🛡️ الحماية: " + heart;
-    document.getElementById('pGPS').innerHTML = "⚓ الإطار: " + gps;
-
-    document.getElementById('sidePanel').classList.add('active');
-}
-function filterSelection(category) {
-    let cards = document.querySelectorAll(".card"); // جلب كل الكاردات
-    
-    cards.forEach(card => {
-        let cardCategory = card.getAttribute("data-category");
-        let parentLink = card.closest('a'); // الوصول للرابط الأب <a>
-
-        if (category === "all" || cardCategory === category) {
-            parentLink.style.display = "block"; // إظهار إذا كان مطابقاً أو اخترنا الكل
-        } else {
-            parentLink.style.display = "none";  // إخفاء إذا لم يكن مطابقاً
-        }
-    });
-}
+        document.getElementById('sidePanel').classList.add('active');
+    }
 
     function closeDetails() {
-        // إخفاء اللوحة عند ابتعاد الماوس
         document.getElementById('sidePanel').classList.remove('active');
     }
+
+    // وظيفة الفلترة (رجالي / نسائي)
+    function filterSelection(category) {
+        let cards = document.querySelectorAll(".card");
+        cards.forEach(card => {
+            let cardCategory = card.getAttribute("data-category");
+            let parentLink = card.parentElement; // الرابط الأب <a>
+
+            if (category === "all" || cardCategory === category) {
+                parentLink.style.display = "block";
+            } else {
+                parentLink.style.display = "none";
+            }
+        });
+    }
 </script>
+
 <footer class="footer">
-  <!-- العنوان الكبير -->
-  <div class="footer-header">
-    <h2>TICTAC</h2>
-  </div>
-
-  <!-- أسماء العناصر في صف واحد -->
-  <div class="footer-nav">
-    <div class="footer-link">
-      <h3>معلومات</h3>
-      <ul>
-        <li><a href="aboutUs.html">من نحن</a></li>
-        <li><a href="aboutUs.html">أسئلة متكررة</a></li>
-        <li><a href="aboutUs.html">إتصل بنا</a></li>
-      </ul>
+    <div class="footer-header"><h2>TICTAC</h2></div>
+    <div class="footer-nav">
+        <div class="footer-link">
+            <h3>معلومات</h3>
+            <ul>
+                <li><a href="aboutUs.html">من نحن</a></li>
+                <li><a href="aboutUs.html">أسئلة متكررة</a></li>
+                <li><a href="aboutUs.html">إتصل بنا</a></li>
+            </ul>
+        </div>
+        <div class="footer-link">
+            <h3>الشروط والسياسات</h3>
+            <ul>
+                <li><a href="#">شروط الاستخدام</a></li>
+                <li><a href="#">سياسة الخصوصية</a></li>
+            </ul>
+        </div>
+        <div class="footer-link">
+            <h3>العنوان</h3>
+            <p>بن عاشور - طرابلس</p>
+        </div>
+        <div class="footer-link">
+            <h3>معلومات الوصول</h3>
+            <ul>
+                <li>Tictac2025@gmail.com</li>
+                <li>0915044592</li>
+            </ul>
+        </div>
     </div>
-
-    <div class="footer-link">
-      <h3>الشروط والسياسات</h3>
-      <ul>
-        <li><a href="#">شروط الاستخدام</a></li>
-        <li><a href="#">سياسة الخصوصية</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-link">
-      <h3>العنوان</h3>
-      <p>بن عاشور - طرابلس</p>
-    </div>
-
-    <div class="footer-link">
-      <h3>معلومات الوصول</h3>
-      <ul>
-        <li><a href="#">Tictac2025@gmail.com</a></li>
-        <li><a href="#">0915044592</a></li>
-        <li><a href="#">0925044592</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- نص أسفل الفوتر -->
-  <div class="footer-bottom">
-    © 2025 جميع الحقوق محفوظة
-  </div>
+    <div class="footer-bottom">© 2025 جميع الحقوق محفوظة</div>
 </footer>
- <!-- ملف الجافاسكريبت -->
-    <script src="hov.js"></script>
+
+<script src="hov.js">
+    function updateCartBadge() {
+    // 1. تحديث رقم السلة
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     
+    let cartBadge = document.getElementById("cart-badge");
+    if (cartBadge) {
+        cartBadge.innerText = totalItems;
+    }
+
+
+    // 2. تحديث رقم المفضلة (إذا كان لديك منطق للمفضلة)
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    let favBadge = document.getElementById("fav-badge");
+    if (favBadge) {
+        favBadge.innerText = favorites.length; // يعرض عدد العناصر المميزة بقلب
+    }
+}
+
+// تأكدي من تشغيل الدالة عند تحميل الصفحة
+window.addEventListener('DOMContentLoaded', updateCartBadge);
+</script>
 </body>
 </html>

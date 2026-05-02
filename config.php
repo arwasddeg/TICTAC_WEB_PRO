@@ -28,28 +28,9 @@ $table_products = "CREATE TABLE IF NOT EXISTS products (
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
-
 mysqli_query($conn, $table_products);
 
-// 5. كود إنشاء جدول الآدمن (اختياري الآن ولكن مفيد للمستقبل)
-// $table_admin = "CREATE TABLE IF NOT EXISTS admins (
-//     id INT(11) AUTO_INCREMENT PRIMARY KEY,
-//     username VARCHAR(50) NOT NULL,
-//     password VARCHAR(255) NOT NULL
-// )";
-// mysqli_query($conn, $table_admin);
-// 6. كود إنشاء جدول الطلبات
-$table_orders = "CREATE TABLE IF NOT EXISTS orders (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT(11), -- ربط الطلب بجدول الـ users
-    total DECIMAL(10,2),
-    status VARCHAR(50) DEFAULT 'pending', -- حالة الطلب (قيد الانتظار، تم التوصيل..)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-)";
-mysqli_query($conn, $table_orders);
-
-// 7. كود إنشاء جدول المستخدمين
+// 5. كود إنشاء جدول المستخدمين
 $table_users = "CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
@@ -59,35 +40,46 @@ $table_users = "CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 mysqli_query($conn, $table_users);
-// 8. إدخال أدمن افتراضي (ضعي هذا الكود في نهاية الملف)
-// نستخدم mysqli_num_rows لنتأكد أنه لم يتم إضافته من قبل، حتى لا يتكرر في كل مرة نفتح فيها الصفحة
-$check_admin = mysqli_query($conn, "SELECT * FROM admins WHERE username='admin'");
+
+// 6. كود إنشاء جدول الطلبات
+$table_orders = "CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(11),
+    total DECIMAL(10,2),
+    status VARCHAR(50) DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+)";
+mysqli_query($conn, $table_orders);
+
+// 7. جدول تفاصيل الطلبات (جديد)
+$table_order_items = "CREATE TABLE IF NOT EXISTS order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_name VARCHAR(255) NOT NULL,
+    product_price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+)";
+mysqli_query($conn, $table_order_items);
+
+// 8. إدخال أدمن افتراضي
+$check_admin = mysqli_query($conn, "SELECT * FROM users WHERE email='admin@gmail.com'");
 
 if (mysqli_num_rows($check_admin) == 0) {
-    // كلمة المرور هنا 123456، يمكنكِ تغييرها لاحقاً
-    $insert_admin = "INSERT INTO admins (username, password) VALUES ('admin@gmail.com', '123456')";
-    
-    if(mysqli_query($conn, $insert_admin)) {
-        echo "<script>console.log('تم إنشاء حساب الأدمن الافتراضي بنجاح');</script>";
-    }
+    $insert_admin = "INSERT INTO users (name, email, password, role)
+    VALUES ('Admin', 'admin@gmail.com', '123456', 'admin')";
+    mysqli_query($conn, $insert_admin);
 }
+
+// 9. جدول السلة (اختياري)
 $table_cart = "CREATE TABLE IF NOT EXISTS cart (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     product_id INT,
     quantity INT,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 )";
-mysqli_query($conn, $table_users);
-
-$check_admin = mysqli_query($conn, "SELECT * FROM users WHERE email='admin@gmail.com'");
-
-if (mysqli_num_rows($check_admin) == 0) {
-
-    $insert_admin = "INSERT INTO users (name, email, password, role)
-    VALUES ('Admin', 'admin@gmail.com', '123456', 'admin')";
-
-    mysqli_query($conn, $insert_admin);
-}
-
+mysqli_query($conn, $table_cart);
 ?>
