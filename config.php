@@ -59,18 +59,8 @@ $table_users = "CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 mysqli_query($conn, $table_users);
-// 8. إدخال أدمن افتراضي (ضعي هذا الكود في نهاية الملف)
-// نستخدم mysqli_num_rows لنتأكد أنه لم يتم إضافته من قبل، حتى لا يتكرر في كل مرة نفتح فيها الصفحة
-$check_admin = mysqli_query($conn, "SELECT * FROM admins WHERE username='admin'");
 
-if (mysqli_num_rows($check_admin) == 0) {
-    // كلمة المرور هنا 123456، يمكنكِ تغييرها لاحقاً
-    $insert_admin = "INSERT INTO admins (username, password) VALUES ('admin@gmail.com', '123456')";
-    
-    if(mysqli_query($conn, $insert_admin)) {
-        echo "<script>console.log('تم إنشاء حساب الأدمن الافتراضي بنجاح');</script>";
-    }
-}
+
 $table_cart = "CREATE TABLE IF NOT EXISTS cart (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -78,14 +68,14 @@ $table_cart = "CREATE TABLE IF NOT EXISTS cart (
     quantity INT,
     FOREIGN KEY (user_id) REFERENCES users(id)
 )";
-mysqli_query($conn, $table_users);
+mysqli_query($conn, $table_cart);
 
 $check_admin = mysqli_query($conn, "SELECT * FROM users WHERE email='admin@gmail.com'");
 
 if (mysqli_num_rows($check_admin) == 0) {
-
+   $admin_pass = password_hash("123456", PASSWORD_DEFAULT);
     $insert_admin = "INSERT INTO users (name, email, password, role)
-    VALUES ('Admin', 'admin@gmail.com', '123456', 'admin')";
+    VALUES ('Admin', 'admin@gmail.com', '$admin_pass', 'admin')";
 
     mysqli_query($conn, $insert_admin);
 }

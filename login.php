@@ -4,6 +4,7 @@ include "config.php";
 
 $email = $_POST['email'];
 $password = $_POST['password'];
+$remember = isset($_POST['remember']);
 
 $sql = "SELECT * FROM users WHERE email='$email'";
 $result = mysqli_query($conn, $sql);
@@ -14,9 +15,10 @@ if (mysqli_num_rows($result) > 0) {
 
 } else {
 
-    // 🔥 نسجل المستخدم تلقائي
-    $sql = "INSERT INTO users (email, password, role) 
-            VALUES ('$email', '$password', 'user')";
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+$sql = "INSERT INTO users (email, password, role) 
+        VALUES ('$email', '$hashedPassword', 'user')";
     mysqli_query($conn, $sql);
 
     $user = [
@@ -30,9 +32,12 @@ if (mysqli_num_rows($result) > 0) {
 // 🔥 التحقق من كلمة المرور
 
 
-    if ($password == $user['password']) {
+    if (password_verify($password, $user['password'])) {
+        // 🔥 حفظ الإيميل في Cookie لمدة 7 أيام
+setcookie("user_email", $user['email'], time() + (86400 * 7), "/");
 
-        session_start(); // 🔥 تأكدي إنها موجودة فوق
+        session_start();
+    
 
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['role'] = $user['role'];

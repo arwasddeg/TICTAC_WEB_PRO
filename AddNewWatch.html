@@ -74,6 +74,11 @@
 
 <div class="form-container">
     <h2>إضافة ساعة جديدة</h2>
+    <!-- 
+        action: الملف اللي بيعالج البيانات في السيرفر (PHP)
+        method: POST لإرسال البيانات بأمان وبحجم كبير
+        enctype: ضروري جداً لكي يتمكن الـ PHP من استلام الصور
+    -->
     <form action="save_product.php" method="POST"  enctype="multipart/form-data"  >
         
         <div class="form-group">
@@ -103,6 +108,7 @@
             <label>صورة الساعة</label>
             <input type="file" name="product_image" accept="image/*" required>
         </div>
+        <!-- image/* تخليه يفتح الصور بس -->
 
         <button type="submit" class="btn-submit">حفظ ونشر الساعة</button>
     </form>
